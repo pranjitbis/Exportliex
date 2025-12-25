@@ -1,0 +1,501 @@
+/* Nav.module.css */
+
+.navbar {
+  background: #010103;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  padding: 15px 0 13px;
+  border-bottom: 1px solid rgb(10, 10, 10);
+}
+
+.navContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 20px;
+  position: relative;
+  width: 100%;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a56db;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+/* Mobile menu button */
+.mobileMenuButton {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #4b5563;
+  padding: 5px;
+  z-index: 1001;
+}
+
+/* Desktop Navigation Container */
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+/* Desktop menu */
+.menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.menuItem {
+  position: relative;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  color: #d1d1d1;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: color 0.2s;
+  padding: 0.5rem 0;
+  background: none;
+  border: none;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.label:hover {
+  color: #1a56db;
+}
+
+/* Arrow icons */
+.desktopArrow {
+  display: block;
+}
+
+.mobileArrow {
+  display: none;
+}
+
+.label svg {
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+}
+
+.menuItem:hover .label .desktopArrow svg {
+  transform: rotate(180deg);
+}
+
+/* Mega Menu Styles */
+.megaMenu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  padding: 2.5rem;
+  display: none;
+  z-index: 1000;
+  border: 1px solid #e5e7eb;
+  min-width: 600px;
+  max-width: 1100px;
+}
+
+.menuItem:hover .megaMenu {
+  display: block;
+}
+
+/* 4-column layout for sections */
+
+.menuColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.menuColumn h4 {
+  margin: 1rem 0 0;
+  color: #111827;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  padding-bottom: 0.75rem;
+  border-bottom: none;
+  white-space: nowrap;
+}
+
+/* 2x2 Grid for LINKS ONLY - inside each section */
+.grid2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem 0rem;
+  position: relative;
+  bottom: 20px;
+  border-bottom: 1px solid rgb(209, 206, 206);
+}
+
+/* Icon styles with colors */
+.navicons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.2s;
+  margin-right: 0.75rem;
+  border-radius: 6px;
+  padding: 0.25rem;
+}
+
+/* Icon Color Classes */
+.blueIcon {
+  color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+.skyBlueIcon {
+  color: #0ea5e9;
+  background-color: #f0f9ff;
+}
+
+.greenIcon {
+  color: #10b981;
+  background-color: #f0fdf4;
+}
+
+.tealIcon {
+  color: #14b8a6;
+  background-color: #f0fdfa;
+}
+
+.indigoIcon {
+  color: #6366f1;
+  background-color: #eef2ff;
+}
+
+.purpleIcon {
+  color: #8b5cf6;
+  background-color: #f5f3ff;
+}
+
+.orangeIcon {
+  color: #f97316;
+  background-color: #fff7ed;
+}
+
+.yellowIcon {
+  color: #f59e0b;
+  background-color: #fffbeb;
+}
+
+.redIcon {
+  color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.linkWithIcon {
+  display: flex;
+  align-items: center;
+  color: #374151;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 400;
+  transition: color 0.2s;
+  padding: 0.5rem 0;
+  line-height: 1.4;
+}
+
+.linkWithIcon:hover {
+  color: #1a56db;
+}
+
+.linkWithIcon:hover .navicons {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Simple menu for Company */
+.simpleMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: none;
+  z-index: 1000;
+  border: 1px solid #e5e7eb;
+  min-width: 180px;
+}
+
+.menuItem:hover .simpleMenu {
+  display: block;
+}
+
+.companyMenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.companyMenu li {
+  margin: 0;
+}
+
+/* Auth Buttons - Desktop */
+.authButtons {
+  display: flex;
+  align-items: center;
+}
+
+.registerBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1.5rem;
+  background: linear-gradient(135deg, #1a56db, #3b82f6);
+  border-radius: 6px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 10px rgba(26, 86, 219, 0.2);
+}
+
+.registerBtn:hover {
+  background: linear-gradient(135deg, #1e40af, #2563eb);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(26, 86, 219, 0.3);
+}
+
+.registerBtn .navicons {
+  color: white;
+  background: none;
+  margin-right: 0.5rem;
+}
+
+/* Mobile Menu Styles */
+.mobileMenu {
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  padding: 1.5rem;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.mobileMenu.mobileMenuOpen {
+  display: block;
+}
+
+.mobileMenuList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mobileMenuItem {
+  width: 100%;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mobileLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+  background: none;
+  border: none;
+  color: #13479b;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mobileDropdown {
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mobileLinkWithIcon {
+  display: flex;
+  align-items: center;
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+  transition: color 0.2s;
+}
+
+.mobileLinkWithIcon:hover {
+  color: #1a56db;
+}
+
+/* Mobile Auth Buttons */
+.mobileAuthButtons {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.mobileRegisterBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #1a56db, #3b82f6);
+  border-radius: 6px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 10px rgba(26, 86, 219, 0.2);
+}
+
+.mobileRegisterBtn:hover {
+  background: linear-gradient(135deg, #1e40af, #2563eb);
+}
+
+/* Responsive Styles */
+@media (max-width: 1080px) {
+  .desktopNav {
+    display: none;
+  }
+
+  .mobileMenuButton {
+    display: block;
+  }
+
+  .mobileArrow {
+    display: block;
+  }
+
+  .desktopArrow {
+    display: none;
+  }
+
+  /* Mobile mega menu adjustments */
+  .megaMenu {
+    position: static;
+    box-shadow: none;
+    background: #f9fafb;
+    border-radius: 0;
+    padding: 1.5rem;
+    display: none;
+    width: 100%;
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    min-width: auto;
+    max-width: none;
+    left: auto;
+    transform: none;
+    right: auto;
+  }
+
+  .megaMenu.mobileOpen {
+    display: block;
+  }
+
+  .megaMenuContent {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .grid2x2 {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    position: relative;
+    bottom: 0px;
+  }
+
+  .menuColumn h4 {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: normal;
+  }
+
+  .linkWithIcon {
+    padding: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+
+  .navicons {
+    font-size: 1.1rem;
+    padding: 0.2rem;
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1080px) {
+  .menu {
+    gap: 1.5rem;
+  }
+
+  .megaMenu {
+    min-width: 850px;
+    padding: 2rem;
+    left: 0;
+    transform: translateX(0);
+  }
+
+  .megaMenuContent {
+    gap: 2rem;
+  }
+
+  .navContainer {
+    padding: 1rem 16px;
+  }
+
+  .menuItem:first-child .megaMenu {
+    left: 0;
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 1080px) {
+  .mobileMenuButton {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: none !important;
+  }
+}

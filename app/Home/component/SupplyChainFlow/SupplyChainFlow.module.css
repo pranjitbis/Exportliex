@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap");
+.flowSection {
+  width: 100%;
+  padding: 130px 40px;
+
+  text-align: center;
+}
+
+.flowSection h2 {
+  font-size: 3.5rem;
+  color: rgb(27, 41, 61);
+  margin-bottom: 7px;
+  font-family: "Archivo Black", sans-serif;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #344c6d;
+  max-width: 720px;
+  margin: 0 auto 70px;
+}
+
+/* Flow container */
+.flow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 80px 0px 50px;
+}
+
+/* Each step */
+.step {
+  width: 380px;
+  padding: 60px 24px;
+  background: #f8fafc;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
+/* Icon */
+.icon {
+  font-size: 34px;
+  margin-bottom: 16px;
+}
+
+/* Step title */
+.step h4 {
+  font-size: 1.2rem;
+  color: #202f52;
+  margin-bottom: 10px;
+}
+
+/* Step text */
+.step p {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Arrow */
+.arrow {
+  font-size: 32px;
+  color: #94a3b8;
+  margin-top: 120px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .arrow {
+    display: none;
+  }
+
+  .flow {
+    gap: 40px;
+  }
+}

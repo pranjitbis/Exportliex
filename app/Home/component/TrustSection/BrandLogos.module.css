@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Sekuya&display=swap");
+
+/* Section */
+.brandLogos {
+  width: 100%;
+  padding: 100px 0 80px;
+  background: #f4f6f7;
+  text-align: center;
+}
+
+/* Heading */
+.brandLogos h2 {
+  font-size: 2.7rem;
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  font-family: "Sekuya", system-ui;
+  color: rgb(27, 41, 61);
+}
+
+/* Viewport */
+.slider {
+  width: 100%;
+}
+
+/* Moving row (track) */
+.track {
+  display: flex;
+  align-items: center;
+  gap: 120px;
+  width: max-content;
+
+  animation: scroll 25s linear infinite;
+}
+
+/* Pause animation on hover */
+.slider:hover .track {
+  animation-play-state: paused;
+}
+
+/* Individual card */
+.card {
+  width: 180px;
+  height: 150px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+
+  will-change: transform;
+}
+
+/* Hover effect (only hovered card) */
+.card:hover {
+  transform: translateY(8px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Logo image */
+.card img {
+  max-width: 110px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Infinite scrolling animation */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+/* Viewport */
+.slider {
+  width: 100%;
+  position: relative;
+}
+
+/* LEFT white fade */
+.leftFade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 160px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    #f1f1f1 0%,
+    rgba(241, 241, 241, 0) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* RIGHT white fade */
+.rightFade {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 160px;
+  height: 100%;
+  background: linear-gradient(to left, #f1f1f1 0%, rgba(241, 241, 241, 0) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
