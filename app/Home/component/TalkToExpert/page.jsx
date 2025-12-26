@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./TalkToExpert.module.css";
 import TalkImage from "@/public/TalkToExpert/businessman-pointing.png";
 import Image from "next/image";
-
 export default function TalkToExpert() {
   return (
     <section className={styles.section}>
