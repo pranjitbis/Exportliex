@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-// Dynamic import (client-only)
+// client-only dynamic import
 const CountryMap = dynamic(() => import("./CountryMapClient"), { ssr: false });
 
 export default function Page() {
