@@ -1,25 +1,75 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import brandLogos from "./brandLogos";
 import styles from "./BrandLogos.module.css";
 
 export default function BrandLogos() {
+  const [isPaused, setIsPaused] = useState(false);
+  const trackRef = useRef(null);
+
+  // Double the logos array for seamless looping
+  const duplicatedLogos = [...brandLogos, ...brandLogos];
+
   return (
-    <section className={styles.brandLogos}>
-      <h2>Trusted by the world’s fastest growing brands</h2>
+    <section className={styles.brandSection}>
+      <div className={styles.container}>
+        {/* Section Header */}
+        <div className={styles.header}>
+          <h2 className={styles.title}>
+            Trusted by industry leaders worldwide
+          </h2>
+          <p className={styles.subtitle}>
+            Join thousands of companies who rely on our logistics platform
+          </p>
+        </div>
 
-      <div className={styles.slider}>
-        {/* Left & Right fade */}
-        <div className={styles.leftFade}></div>
-        <div className={styles.rightFade}></div>
+        {/* Marquee Container */}
+        <div
+          className={styles.marqueeContainer}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Gradient overlays for fade effect */}
+          <div className={styles.fadeLeft}></div>
+          <div className={styles.fadeRight}></div>
 
-        {/* Moving track */}
-        <div className={styles.track}>
-          {brandLogos.concat(brandLogos).map((logo, index) => (
-            <div className={styles.card} key={index}>
-              <img src={logo.logo} alt={logo.name || "brand"} />
-            </div>
-          ))}
+          {/* Moving Track */}
+          <div
+            className={`${styles.marqueeTrack} ${
+              isPaused ? styles.paused : ""
+            }`}
+            ref={trackRef}
+          >
+            {duplicatedLogos.map((logo, index) => (
+              <div className={styles.logoItem} key={index}>
+                <div className={styles.logoWrapper}>
+                  <img
+                    src={logo.logo}
+                    alt={logo.name || "Brand logo"}
+                    className={styles.logoImage}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className={styles.stats}>
+          <div className={styles.statItem}>
+            <div className={styles.statNumber}>5,000+</div>
+            <div className={styles.statLabel}>Companies</div>
+          </div>
+          <div className={styles.statDivider}></div>
+          <div className={styles.statItem}>
+            <div className={styles.statNumber}>98%</div>
+            <div className={styles.statLabel}>Retention Rate</div>
+          </div>
+          <div className={styles.statDivider}></div>
+          <div className={styles.statItem}>
+            <div className={styles.statNumber}>150+</div>
+            <div className={styles.statLabel}>Countries</div>
+          </div>
         </div>
       </div>
     </section>

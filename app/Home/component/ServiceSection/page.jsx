@@ -4,7 +4,9 @@ import styles from "./ServicesSection.module.css";
 export default function ServicesSection() {
   return (
     <section className={styles.services}>
-      <h2 className={styles.heading}>Everything You Need to Move Goods Faster</h2>
+      <h2 className={styles.heading}>
+        Everything You Need to Move Goods Faster
+      </h2>
       {/* Ocean Freight */}
       <div className={styles.row}>
         <div className={styles.content}>

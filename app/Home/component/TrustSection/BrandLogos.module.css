@@ -1,111 +1,221 @@
-@import url("https://fonts.googleapis.com/css2?family=Sekuya&display=swap");
+/* BrandLogos.module.css */
 
-/* Section */
-.brandLogos {
-  width: 100%;
-  padding: 100px 0 80px;
-  background: #f4f6f7;
+.brandSection {
+  padding: 6rem 2rem;
+  background: #f8fafc;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
   text-align: center;
+  margin-bottom: 4rem;
 }
 
-/* Heading */
-.brandLogos h2 {
-  font-size: 2.7rem;
-  max-width: 1200px;
-  margin: 0 auto 60px;
-  font-family: "Sekuya", system-ui;
-  color: rgb(27, 41, 61);
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
-/* Viewport */
-.slider {
-  width: 100%;
+.subtitle {
+  font-size: 1.125rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
-/* Moving row (track) */
-.track {
+/* Marquee Container */
+.marqueeContainer {
+  position: relative;
+  overflow: hidden;
+  margin: 3rem 0 4rem;
+  padding: 2rem 0;
+}
+
+.fadeLeft {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  background: linear-gradient(90deg, #f8fafc 0%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fadeRight {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  background: linear-gradient(270deg, #f8fafc 0%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Marquee Track */
+.marqueeTrack {
   display: flex;
-  align-items: center;
-  gap: 120px;
+  gap: 4rem;
   width: max-content;
-
-  animation: scroll 25s linear infinite;
+  animation: scroll 30s linear infinite;
 }
 
-/* Pause animation on hover */
-.slider:hover .track {
+.marqueeTrack.paused {
   animation-play-state: paused;
 }
 
-/* Individual card */
-.card {
-  width: 180px;
-  height: 150px;
+.logoItem {
+  flex-shrink: 0;
+}
 
+.logoWrapper {
+  width: 160px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  border-radius: 12px;
-
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-
-  will-change: transform;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
 }
 
-/* Hover effect (only hovered card) */
-.card:hover {
-  transform: translateY(8px) scale(1.05);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+.logoWrapper:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-color: #cbd5e1;
 }
 
-/* Logo image */
-.card img {
-  max-width: 110px;
+.logoImage {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: contain;
+  filter: grayscale(100%) opacity(0.8);
+  transition: filter 0.3s ease;
 }
 
-/* Infinite scrolling animation */
+.logoWrapper:hover .logoImage {
+  filter: grayscale(0) opacity(1);
+}
+
+/* Animation */
 @keyframes scroll {
-  from {
+  0% {
     transform: translateX(0);
   }
-  to {
-    transform: translateX(-50%);
+  100% {
+    transform: translateX(
+      calc(-160px * 6 - 4rem * 6)
+    ); /* Adjust based on logo count */
   }
 }
-/* Viewport */
-.slider {
-  width: 100%;
-  position: relative;
+
+/* Stats */
+.stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 2rem;
 }
 
-/* LEFT white fade */
-.leftFade {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 160px;
-  height: 100%;
-  background: linear-gradient(
-    to right,
-    #f1f1f1 0%,
-    rgba(241, 241, 241, 0) 100%
-  );
-  z-index: 2;
-  pointer-events: none;
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100px;
 }
 
-/* RIGHT white fade */
-.rightFade {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 160px;
-  height: 100%;
-  background: linear-gradient(to left, #f1f1f1 0%, rgba(241, 241, 241, 0) 100%);
-  z-index: 2;
-  pointer-events: none;
+.statNumber {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2563eb;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: #64748b;
+  text-align: center;
+  font-weight: 500;
+}
+
+.statDivider {
+  width: 1px;
+  height: 40px;
+  background: #e2e8f0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .logoWrapper {
+    width: 140px;
+    height: 70px;
+  }
+
+  .marqueeTrack {
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .brandSection {
+    padding: 4rem 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .fadeLeft,
+  .fadeRight {
+    width: 50px;
+  }
+
+  .logoWrapper {
+    width: 120px;
+    height: 60px;
+  }
+
+  .marqueeTrack {
+    gap: 2rem;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .statDivider {
+    width: 100px;
+    height: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logoWrapper {
+    width: 100px;
+    height: 50px;
+  }
+
+  .marqueeTrack {
+    gap: 1.5rem;
+  }
 }

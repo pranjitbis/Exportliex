@@ -1,13 +1,12 @@
 /* Nav.module.css */
 
 .navbar {
-  background: #010103;
+  background: #0c0c24;
   position: sticky;
   top: 0;
   z-index: 1000;
   width: 100%;
   padding: 15px 0 13px;
-  border-bottom: 1px solid rgb(10, 10, 10);
 }
 
 .navContainer {
