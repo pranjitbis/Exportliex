@@ -1,0 +1,197 @@
+.hero {
+  position: relative;
+  min-height: 89vh;
+  background-image: url("https://images.unsplash.com/photo-1586521995568-39abaa0c2311");
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+  padding: 3rem 0px;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(7, 23, 40, 0.9) 0%,
+    rgba(7, 23, 40, 0.75) 50%,
+    rgba(7, 23, 40, 0.55) 100%
+  );
+}
+
+.wrapper {
+  position: relative;
+  max-width: 1550px;
+  margin: 0 auto;
+  padding: clamp(3rem, 6vw, 6rem) 20px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* LEFT CONTENT */
+.left {
+  max-width: 620px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #c7d2fe;
+  margin-bottom: 1rem;
+}
+
+.icon {
+  background: #0b3a63;
+  border-radius: 50%;
+  padding: 6px;
+}
+
+.title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1.15;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.text {
+  font-size: 1.05rem;
+  color: #e5e7eb;
+  margin-bottom: 0.75rem;
+}
+
+.subText {
+  font-size: 0.95rem;
+  color: #cbd5f5;
+}
+
+/* FORM CARD */
+.card {
+  background: linear-gradient(180deg, #0a2540, #071f36);
+  border-radius: 12px;
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+.cardTitle {
+  text-align: center;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+/* FORM FIELDS */
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+}
+
+.field label {
+  font-size: 0.75rem;
+  color: #c7d2fe;
+  margin-bottom: 6px;
+}
+
+.field input,
+.field select {
+  height: 46px;
+  padding: 0 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.field input::placeholder {
+  color: #94a3b8;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* GRID */
+.fieldGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* CHECKBOX */
+.checkbox {
+  display: flex;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: #cbd5f5;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.checkbox input {
+  margin-top: 4px;
+}
+
+.checkbox a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.checkbox a:hover {
+  text-decoration: underline;
+}
+
+/* BUTTON */
+.submitBtn {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #5b6de8, #4f63e3);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submitBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(91, 109, 232, 0.4);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 640px) {
+  .fieldGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}

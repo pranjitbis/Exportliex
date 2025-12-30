@@ -163,7 +163,7 @@ export default function Page() {
                     <h4>FORWARDING</h4>
                     <div className={styles.grid2x2}>
                       <Link
-                        href="/"
+                        href="/products/ocean-freight"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -175,7 +175,7 @@ export default function Page() {
                         Ocean Freight
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/air-freight"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -209,85 +209,6 @@ export default function Page() {
                           <MdLaptop />
                         </span>
                         Exportliex Platform
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Column 2 - FULFILLMENT */}
-                  <div className={styles.menuColumn}>
-                    <h4>FULFILLMENT</h4>
-                    <div className={styles.grid2x2}>
-                      <Link
-                        href="/"
-                        onClick={closeMobileMenu}
-                        className={styles.linkWithIcon}
-                      >
-                        <span
-                          className={`${styles.navicons} ${styles.orangeIcon}`}
-                        >
-                          <MdShoppingCart />
-                        </span>
-                        eCommerce Fulfillment
-                      </Link>
-                      <Link
-                        href="/"
-                        onClick={closeMobileMenu}
-                        className={styles.linkWithIcon}
-                      >
-                        <span
-                          className={`${styles.navicons} ${styles.blueIcon}`}
-                        >
-                          <MdBusiness />
-                        </span>
-                        B2B Fulfillment
-                      </Link>
-                      <Link
-                        href="/"
-                        onClick={closeMobileMenu}
-                        className={styles.linkWithIcon}
-                      >
-                        <span
-                          className={`${styles.navicons} ${styles.greenIcon}`}
-                        >
-                          <MdWarehouse />
-                        </span>
-                        Warehouse Network
-                      </Link>
-                      <Link
-                        href="/"
-                        onClick={closeMobileMenu}
-                        className={styles.linkWithIcon}
-                      >
-                        <span
-                          className={`${styles.navicons} ${styles.yellowIcon}`}
-                        >
-                          <MdLocalPostOffice />
-                        </span>
-                        Parcel
-                      </Link>
-                      <Link
-                        href="/"
-                        onClick={closeMobileMenu}
-                        className={styles.linkWithIcon}
-                      >
-                        <span
-                          className={`${styles.navicons} ${styles.redIcon}`}
-                        >
-                          <MdAssignmentReturn />
-                        </span>
-                        Returns
-                      </Link>
-                      <Link
-                        href="/"
-                        onClick={closeMobileMenu}
-                        className={styles.linkWithIcon}
-                      >
-                        <span
-                          className={`${styles.navicons} ${styles.purpleIcon}`}
-                        >
-                          <MdStorefront />
-                        </span>
-                        Omnichannel Seller Portal
                       </Link>
                     </div>
                   </div>
@@ -1012,23 +933,30 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Mobile menu button */}
+        {/* Mobile Menu */}
         <button
-          className={styles.mobileMenuButton}
+          className={`${styles.mobileMenuButton} ${
+            isMobileMenuOpen ? styles.Menubtn : ""
+          }`}
           onClick={toggleMobileMenu}
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? <MdClose /> : <MdMenu />}
         </button>
-
-        {/* Mobile Menu */}
         <div
           className={`${styles.mobileMenu} ${
             isMobileMenuOpen ? styles.mobileMenuOpen : ""
           }`}
         >
+          <button
+            className={`${styles.mobileMenuButton} ${styles.secondMobileBtn}`}
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+          >
+            <MdClose />
+          </button>
           <ul className={styles.mobileMenuList}>
-            {/* Mobile menu items */}
+            {/* Mobile Freight & Fulfillment */}
             <li className={styles.mobileMenuItem}>
               <button
                 className={styles.mobileLabel}
@@ -1045,6 +973,7 @@ export default function Page() {
               </button>
               {openMobileDropdown === "freight" && (
                 <div className={styles.mobileDropdown}>
+                  <h4 className={styles.mobileDropdownTitle}>FORWARDING</h4>
                   <Link
                     href="/"
                     onClick={closeMobileMenu}
@@ -1087,10 +1016,117 @@ export default function Page() {
                     </span>
                     Exportliex Platform
                   </Link>
+
+                  <h4 className={styles.mobileDropdownTitle}>CONTROL TOWER</h4>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.blueIcon}`}>
+                      <MdControlCamera />
+                    </span>
+                    Order Management
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.greenIcon}`}>
+                      <MdLocalShipping />
+                    </span>
+                    Buyer's Consolidation
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.purpleIcon}`}>
+                      <MdDescription />
+                    </span>
+                    Booking Management
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.tealIcon}`}>
+                      <MdPublic />
+                    </span>
+                    Carbon Control
+                  </Link>
+
+                  <h4 className={styles.mobileDropdownTitle}>
+                    CUSTOMS & FINANCIAL SERVICES
+                  </h4>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.indigoIcon}`}>
+                      <MdGavel />
+                    </span>
+                    Customs Brokerage
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.greenIcon}`}>
+                      <MdAttachMoney />
+                    </span>
+                    Trade Finance
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.orangeIcon}`}>
+                      <MdMoneyOff />
+                    </span>
+                    Duty Drawback
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.blueIcon}`}>
+                      <MdSecurity />
+                    </span>
+                    Insurance
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.yellowIcon}`}>
+                      <MdLightbulb />
+                    </span>
+                    Trade Advisory
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.purpleIcon}`}>
+                      <MdCategory />
+                    </span>
+                    Classification
+                  </Link>
                 </div>
               )}
             </li>
 
+            {/* Mobile Technology */}
             <li className={styles.mobileMenuItem}>
               <button
                 className={styles.mobileLabel}
@@ -1107,6 +1143,9 @@ export default function Page() {
               </button>
               {openMobileDropdown === "technology" && (
                 <div className={styles.mobileDropdown}>
+                  <h4 className={styles.mobileDropdownTitle}>
+                    PRODUCT RELEASES
+                  </h4>
                   <Link
                     href="/"
                     onClick={closeMobileMenu}
@@ -1127,6 +1166,10 @@ export default function Page() {
                     </span>
                     2025 Winter Release
                   </Link>
+
+                  <h4 className={styles.mobileDropdownTitle}>
+                    TECHNOLOGY SOLUTIONS
+                  </h4>
                   <Link
                     href="/"
                     onClick={closeMobileMenu}
@@ -1149,10 +1192,125 @@ export default function Page() {
                     </span>
                     Exportliex Control Tower
                   </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.greenIcon}`}>
+                      <MdStoreMallDirectory />
+                    </span>
+                    Omnichannel Seller Portal
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.indigoIcon}`}>
+                      <MdInsights />
+                    </span>
+                    Exportliex Intelligence
+                  </Link>
+
+                  <h4 className={styles.mobileDropdownTitle}>DEVELOPERS</h4>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.blueIcon}`}>
+                      <MdCode />
+                    </span>
+                    Developer Portal
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.greenIcon}`}>
+                      <MdDescription />
+                    </span>
+                    API Documentation
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.orangeIcon}`}>
+                      <MdSchool />
+                    </span>
+                    API Tutorials
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.yellowIcon}`}>
+                      <MdHelpOutline />
+                    </span>
+                    FAQ
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.purpleIcon}`}>
+                      <MdIntegrationInstructions />
+                    </span>
+                    EDI Documentation
+                  </Link>
+
+                  <h4 className={styles.mobileDropdownTitle}>INTEGRATIONS</h4>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.tealIcon}`}>
+                      <MdApps />
+                    </span>
+                    ERP Systems
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.orangeIcon}`}>
+                      <MdStore />
+                    </span>
+                    Marketplaces
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.blueIcon}`}>
+                      <MdWeb />
+                    </span>
+                    Carrier APIs
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.greenIcon}`}>
+                      <MdSettingsApplications />
+                    </span>
+                    Custom Solutions
+                  </Link>
                 </div>
               )}
             </li>
 
+            {/* Mobile Resources */}
             <li className={styles.mobileMenuItem}>
               <button
                 className={styles.mobileLabel}
@@ -1169,6 +1327,9 @@ export default function Page() {
               </button>
               {openMobileDropdown === "resources" && (
                 <div className={styles.mobileDropdown}>
+                  <h4 className={styles.mobileDropdownTitle}>
+                    INSIGHTS & ANALYTICS
+                  </h4>
                   <Link
                     href="/"
                     onClick={closeMobileMenu}
@@ -1194,6 +1355,30 @@ export default function Page() {
                     onClick={closeMobileMenu}
                     className={styles.mobileLinkWithIcon}
                   >
+                    <span className={`${styles.navicons} ${styles.blueIcon}`}>
+                      <MdPublic />
+                    </span>
+                    Market Intelligence
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.tealIcon}`}>
+                      <MdCalculate />
+                    </span>
+                    Carbon Calculator
+                  </Link>
+
+                  <h4 className={styles.mobileDropdownTitle}>
+                    LEARNING RESOURCES
+                  </h4>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
                     <span className={`${styles.navicons} ${styles.orangeIcon}`}>
                       <MdArticle />
                     </span>
@@ -1209,10 +1394,117 @@ export default function Page() {
                     </span>
                     Webinars
                   </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.greenIcon}`}>
+                      <MdFolderOpen />
+                    </span>
+                    Case Studies
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.redIcon}`}>
+                      <MdOndemandVideo />
+                    </span>
+                    Video Tutorials
+                  </Link>
+
+                  <h4 className={styles.mobileDropdownTitle}>TOOLS & GUIDES</h4>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.yellowIcon}`}>
+                      <MdCalendarToday />
+                    </span>
+                    Peak Season 2025
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.blueIcon}`}>
+                      <MdHelpCenter />
+                    </span>
+                    Help Center
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.greenIcon}`}>
+                      <MdList />
+                    </span>
+                    HS Codes
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.purpleIcon}`}>
+                      <MdBook />
+                    </span>
+                    Glossary
+                  </Link>
+
+                  <h4 className={styles.mobileDropdownTitle}>
+                    COMPLIANCE & REGULATIONS
+                  </h4>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.indigoIcon}`}>
+                      <MdGavel />
+                    </span>
+                    Trade Regulations
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.blueIcon}`}>
+                      <MdUpdate />
+                    </span>
+                    Customs Updates
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.greenIcon}`}>
+                      <MdDescription />
+                    </span>
+                    Documentation Guide
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={styles.mobileLinkWithIcon}
+                  >
+                    <span className={`${styles.navicons} ${styles.tealIcon}`}>
+                      <MdChecklist />
+                    </span>
+                    Compliance Checklist
+                  </Link>
                 </div>
               )}
             </li>
 
+            {/* Mobile Company */}
             <li className={styles.mobileMenuItem}>
               <button
                 className={styles.mobileLabel}
