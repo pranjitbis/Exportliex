@@ -1,0 +1,135 @@
+.brandSection {
+  background: #ffffff;
+  padding: 100px 24px;
+}
+
+.container {
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.title {
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 700;
+  color: #0b1f33;
+  margin-bottom: 14px;
+}
+
+.subtitle {
+  max-width: 640px;
+  margin: auto;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4a5d73;
+}
+
+/* MARQUEE */
+.marqueeContainer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Fade edges */
+.fadeLeft,
+.fadeRight {
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fadeLeft {
+  left: 0;
+  background: linear-gradient(to right, #ffffff, transparent);
+}
+
+.fadeRight {
+  right: 0;
+  background: linear-gradient(to left, #ffffff, transparent);
+}
+
+/* Track */
+.marqueeTrack {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  animation: scroll 30s linear infinite;
+  width: max-content;
+}
+
+.paused {
+  animation-play-state: paused;
+}
+
+/* Logo Item */
+.logoItem {
+  flex-shrink: 0;
+}
+
+.logoWrapper {
+  height: 80px;
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e6ebf2;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.logoWrapper:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 50px rgba(37, 99, 235, 0.15);
+}
+
+.logoImage {
+  max-height: 40px;
+  max-width: 120px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.logoWrapper:hover .logoImage {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* ANIMATION */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .brandSection {
+    padding: 80px 16px;
+  }
+
+  .marqueeTrack {
+    gap: 32px;
+  }
+
+  .logoWrapper {
+    min-width: 140px;
+    height: 72px;
+  }
+}

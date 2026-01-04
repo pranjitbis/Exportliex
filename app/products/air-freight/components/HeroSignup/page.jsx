@@ -11,9 +11,7 @@ export default function HeroSignup() {
           <span className={styles.badge}>AIR FREIGHT</span>
 
           <h1>
-            Fast, Reliable Air <br />
-            Freight with Real- <br />
-            time Visibility
+            Fast, Reliable Air Freight with Real - time Visibility
           </h1>
 
           {/* ✅ DESCRIPTION (FULL WIDTH) */}

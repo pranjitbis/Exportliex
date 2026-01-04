@@ -2,9 +2,11 @@
 
 import styles from "./AirFreightInsights.module.css";
 import Image from "next/image";
+
 import airShipmentPlanning from "@/public/products/Resolve-Disruptions.jpg";
 import AirPlain from "@/public/products/smart-air-plain.png";
 import central from "@/public/products/Central.gif";
+
 export default function AirFreightInsights() {
   return (
     <section className={styles.wrapper}>
@@ -26,6 +28,7 @@ export default function AirFreightInsights() {
             src={airShipmentPlanning}
             alt="Air freight exception management"
             className={styles.image}
+            priority
           />
         </div>
       </div>
@@ -41,6 +44,7 @@ export default function AirFreightInsights() {
             Make planning decisions backed by data, not guesswork.
           </p>
         </div>
+
         <div className={styles.imageWrap}>
           <Image
             src={AirPlain}
@@ -73,22 +77,24 @@ export default function AirFreightInsights() {
       </div>
 
       {/* SECTION 4 */}
-      <div className={styles.section}>
-        <div className={styles.imageWrap}>
-          <video className={styles.video} autoPlay loop muted playsInline>
-            <source src="/public/products/Capacity.mp4" type="video/mp4" />
-          </video>
-        </div>
+      <div className={`${styles.section} ${styles.reverse}`}>
         <div className={styles.text}>
           <span className={styles.tag}>GLOBAL NETWORK</span>
           <h2>Improve Reliability with Reserved Air Capacity from Asia</h2>
           <p>
             To maintain consistent transit schedules, we combine frequent
             commercial air services with our own reserved charter capacity. This
-            added flexibility helps protect shipment timelines, minimize
-            rollovers, and keep cargo moving reliably—even during high-demand
-            periods.
+            added flexibility protects shipment timelines—even during
+            high-demand periods.
           </p>
+        </div>
+
+        <div className={styles.imageWrap}>
+          <img
+            src="/products/GloablNetWork.avif"
+            alt="Global network"
+            className={styles.image}
+          />
         </div>
       </div>
     </section>

@@ -64,3 +64,10 @@
   max-height: 200px; /* enough for content */
   padding: 0 22px 20px;
 }
+
+@media (max-width: 400px) {
+  .faqQuestion span{
+    position: relative;
+    top: 8px;
+  }
+}

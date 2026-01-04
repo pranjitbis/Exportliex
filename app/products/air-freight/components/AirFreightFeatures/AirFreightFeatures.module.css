@@ -1,6 +1,6 @@
 .features {
   padding: 100px 20px;
-  background: #ffffff;
+  background: #f7fcff;
 }
 
 .container {
@@ -27,6 +27,7 @@
   width: 100%;
   max-width: 760px;
   margin: auto;
+  color: rgba(36, 43, 73, 0.856);
 }
 
 /* CARD – DEFAULT (SMALL) */
@@ -94,6 +95,14 @@
   }
 }
 
+@media (max-width: 447px) {
+  .content h2 {
+    font-size:1.5rem;
+  }
+   .content p{
+    font-size: 13px;
+   }
+}
 @media (max-width: 640px) {
   .features {
     padding: 70px 16px;

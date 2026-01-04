@@ -159,4 +159,10 @@
   .left h1 {
     font-size: 2rem;
   }
+  
+.container {
+
+  padding: 120px 24px;
+
+}
 }
