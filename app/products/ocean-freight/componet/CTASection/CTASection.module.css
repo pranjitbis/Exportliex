@@ -1,0 +1,91 @@
+.ctaWrapper {
+  background: #eef3f8;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle background shapes (like your screenshot) */
+.ctaWrapper::before,
+.ctaWrapper::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.ctaWrapper::before {
+  width: 420px;
+  height: 420px;
+  right: -120px;
+  top: -80px;
+}
+
+.ctaWrapper::after {
+  width: 300px;
+  height: 300px;
+  right: 120px;
+  bottom: -120px;
+}
+
+.ctaContent {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.ctaContent h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.ctaContent p {
+  font-size: 1rem;
+  color: #475569;
+  max-width: 520px;
+  margin-bottom: 28px;
+}
+
+/* BUTTON */
+.ctaButton {
+  display: inline-block;
+  background: linear-gradient(135deg, #1a56db, #3b82f6);
+  color: #ffffff;
+  padding: 14px 28px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.ctaButton:hover {
+  background: #4338ca;
+  transform: translateY(-1px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 440px) {
+  .ctaWrapper::before,
+  .ctaWrapper::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 0;
+  }
+}
+@media (max-width: 640px) {
+  .ctaWrapper {
+    padding: 60px 16px;
+  }
+
+  .ctaContent h2 {
+    font-size: 1.6rem;
+  }
+
+  .ctaContent p {
+    font-size: 0.95rem;
+  }
+}

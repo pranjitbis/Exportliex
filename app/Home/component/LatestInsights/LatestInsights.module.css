@@ -1,0 +1,285 @@
+/* =========================
+   SECTION WRAPPER
+========================= */
+.section {
+  padding: 90px 6vw;
+  background: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+/* =========================
+   HEADER
+========================= */
+.header {
+  border-top: 1px solid #0f172a;
+  padding-top: 16px;
+  margin-bottom: 48px;
+}
+
+.header h2 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #0f172a;
+}
+
+/* =========================
+   DESKTOP GRID
+========================= */
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* =========================
+   FEATURED (LEFT)
+========================= */
+.featuredImage {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+  border-radius: 14px;
+  transition: transform 0.4s ease;
+}
+
+.featuredImage:hover {
+  transform: scale(1.02);
+}
+
+.featuredContent {
+  margin-top: 22px;
+  max-width: 760px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 12px 0 18px;
+  color: #0f172a;
+}
+
+/* CTA */
+.link {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+  position: relative;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: #2563eb;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+}
+
+/* =========================
+   RIGHT COLUMN (DESKTOP)
+========================= */
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.sideCard {
+  cursor: pointer;
+}
+
+.sideCard img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.35s ease;
+}
+
+.sideCard:hover img {
+  transform: scale(1.03);
+}
+
+.sideContent {
+  margin-top: 12px;
+}
+
+.sideContent span {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.6px;
+}
+
+.sideContent h4 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 8px 0 10px;
+  color: #0f172a;
+}
+
+.sideContent a {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+/* =========================
+   MOBILE CARD SLIDER
+========================= */
+.mobileCard {
+  max-width: 100%;
+}
+
+.mobileImage {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.mobileContent {
+  margin-top: 18px;
+}
+
+.mobileContent h3 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 10px 0 14px;
+  color: #0f172a;
+}
+
+/* =========================
+   CONTROLS (ARROWS + DOTS)
+========================= */
+.controls {
+  margin-top: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.arrow {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: #f1f5f9;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.arrow:hover {
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #cbd5f5;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.activeDot {
+  background: #2563eb;
+  transform: scale(1.2);
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  .featuredImage {
+    height: 360px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+  .section {
+    padding: 48px 16px;
+  }
+
+  .featuredImage {
+    height: 300px;
+  }
+
+  .mobileImage {
+    height: 240px;
+  }
+
+  .controls {
+    margin-top: 32px;
+  }
+
+  .arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+@media (max-width: 480px) {
+  .mobileImage {
+    height: 220px;
+  }
+
+  .mobileContent h3 {
+    font-size: 20px;
+  }
+}

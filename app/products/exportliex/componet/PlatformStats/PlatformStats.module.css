@@ -1,0 +1,85 @@
+.section {
+  background: linear-gradient(90deg, #06263c, #0b3553);
+  padding: 20px 24px;
+}
+
+.grid {
+  max-width: 1400px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* CARD */
+.card {
+  padding: 56px 48px;
+  color: #ffffff;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card:last-child {
+  border-right: none;
+}
+
+/* ICON */
+.icon {
+  font-size: 28px;
+  color: #7aa7ff;
+  margin-bottom: 20px;
+}
+
+/* VALUE */
+.value {
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 700;
+  color: #b3c6ff;
+  margin-bottom: 12px;
+}
+
+/* TEXT */
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #d3e1f1;
+  max-width: 360px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 48px 32px;
+  }
+
+  .card:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .section {
+    padding: 72px 16px;
+  }
+
+  .card {
+    padding: 40px 20px;
+  }
+
+  .desc {
+    max-width: 100%;
+  }
+}

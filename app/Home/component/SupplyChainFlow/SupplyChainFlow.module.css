@@ -1,0 +1,460 @@
+/* SupplyChainFlow.module.css */
+
+.flowSection {
+  padding: 4rem 1rem;
+  background: #ffffff;
+  color: #0f172a;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Desktop Timeline */
+.desktopTimeline {
+  display: none;
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.timelineLine {
+  position: absolute;
+  top: 60px;
+  left: calc(100px / 2);
+  right: calc(100px / 2);
+  height: 2px;
+  background: #e2e8f0;
+  z-index: 1;
+}
+
+.timelineProgress {
+  height: 100%;
+  background: #1d4ed8;
+  transition: width 0.3s ease;
+}
+
+.stepsDesktop {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.stepDesktop {
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stepDesktop:hover {
+  transform: translateY(-4px);
+}
+
+.stepDesktopContent {
+  padding: 1rem;
+  position: relative;
+}
+
+.stepDesktopIcon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  font-size: 2rem;
+}
+
+.stepDesktop.active .stepDesktopIcon {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(29, 78, 216, 0.15);
+}
+
+.iconMain {
+  position: absolute;
+  left: 25px;
+}
+
+.iconSecondary {
+  position: absolute;
+  right: 25px;
+}
+
+.stepDesktopNumber {
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.25rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  z-index: 3;
+}
+
+.stepDesktopTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 2rem 0 1rem;
+  line-height: 1.4;
+}
+
+.stepDesktopDescription {
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Mobile Timeline */
+.mobileTimeline {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.stepMobile {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.stepMobile.activeMobile {
+  border-color: #1d4ed8;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.1);
+}
+
+.stepMobileHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.stepMobileIcon {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  border-radius: 50%;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.stepMobileContent {
+  flex: 1;
+}
+
+.stepMobileNumber {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.stepMobileTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.stepMobileDescription {
+  padding: 0 1.25rem 1.25rem;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 1rem;
+  padding-top: 1.25rem;
+}
+
+.stepMobileDescription p {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.mobileStats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mobileStat {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.mobileStatIcon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 8px;
+  background: #e0e7ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1d4ed8;
+}
+
+.mobileStatIcon svg {
+  color: #1d4ed8;
+}
+
+.mobileStatValue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.125rem;
+}
+
+.mobileStatLabel {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Active Step Info (Desktop) */
+.activeInfoDesktop {
+  display: none;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.activeStepHeader {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.activeStepTitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.activeStepDescription {
+  font-size: 1.125rem;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.activeStepStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.activeStat {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  left: 50px;
+}
+
+.activeStatIcon {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.activeStatValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+}
+
+.activeStatLabel {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+.iconWithImage img {
+  max-width: 110px;
+  height: 120px;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1021px) {
+  .iconWithImage img {
+    width: 56px;
+    height: 57px;
+  }
+}
+@media (min-width: 768px) {
+  .flowSection {
+    padding: 4rem 2rem;
+  }
+  .activeStat {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .container {
+    padding: 0 2rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .desktopTimeline {
+    display: block;
+  }
+
+  .mobileTimeline {
+    display: none;
+  }
+
+  .activeInfoDesktop {
+    display: block;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+/* Fix for very small mobile screens */
+@media (max-width: 360px) {
+  .stepMobileHeader {
+    padding: 1rem;
+  }
+
+  .stepMobileIcon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    font-size: 1.25rem;
+  }
+
+  .stepMobileTitle {
+    font-size: 1rem;
+  }
+
+  .mobileStat {
+    padding: 0.75rem;
+  }
+
+  .mobileStatIcon {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+  }
+
+  .mobileStatValue {
+    font-size: 0.875rem;
+  }
+
+  .mobileStatLabel {
+    font-size: 0.7rem;
+  }
+}
+
+/* Landscape orientation support */
+@media (max-height: 600px) and (orientation: landscape) {
+  .flowSection {
+    padding: 2rem 1rem;
+  }
+
+  .stepMobile {
+    margin-bottom: 0.75rem;
+  }
+
+  .stepMobileHeader {
+    padding: 0.75rem;
+  }
+
+  .stepMobileDescription {
+    padding: 0.75rem;
+  }
+}
+
+/* Large desktop screens */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+  }
+
+  .stepsDesktop {
+    gap: 3rem;
+  }
+
+  .stepDesktopIcon {
+    width: 120px;
+    height: 120px;
+  }
+
+  .stepDesktopNumber {
+    top: 130px;
+  }
+
+  .stepDesktopTitle {
+    font-size: 1.375rem;
+  }
+
+  .stepDesktopDescription {
+    font-size: 1rem;
+  }
+}

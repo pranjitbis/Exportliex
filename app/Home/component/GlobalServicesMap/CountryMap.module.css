@@ -1,0 +1,37 @@
+.mapSection {
+  padding: 80px 0px;
+}
+
+.header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 32px;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.description {
+  font-size: 16px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.mapWrapper {
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Height only — no width set */
+.map {
+  height: 560px;
+}
+
+/* Better UX */
+.leaflet-interactive {
+  cursor: pointer;
+}

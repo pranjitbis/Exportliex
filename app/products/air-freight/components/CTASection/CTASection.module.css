@@ -1,0 +1,89 @@
+.section {
+  position: relative;
+  background: linear-gradient(180deg, #eef3f8, #f7f9fc);
+  padding: 100px 20px;
+  overflow: hidden;
+}
+
+/* Decorative Circles */
+.circleOne {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: rgba(30, 64, 255, 0.06);
+  top: -120px;
+  right: -140px;
+}
+
+.circleTwo {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(30, 64, 255, 0.08);
+  bottom: -120px;
+  right: 120px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Text */
+.title {
+  font-size: 34px;
+  font-weight: 700;
+  color: #0b1f33;
+  margin-bottom: 14px;
+}
+
+.description {
+  font-size: 16px;
+  color: #516173;
+  max-width: 520px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* CTA Button */
+.ctaBtn {
+  padding: 14px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e40ff;
+  background: #ffffff;
+  border: 2px solid #1e40ff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ctaBtn:hover {
+  background: #1e40ff;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(30, 64, 255, 0.25);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .circleOne {
+    width: 280px;
+    height: 280px;
+    right: -100px;
+  }
+
+  .circleTwo {
+    width: 220px;
+    height: 220px;
+    right: 40px;
+  }
+}

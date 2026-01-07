@@ -1,0 +1,125 @@
+/* SECTIONS */
+.section {
+  padding: 80px 20px;
+  background: #f7faff;
+}
+
+.sectionAlt {
+  padding: 80px 20px 0;
+  background: #ffffff;
+}
+
+/* GRID */
+.container {
+  max-width: 1400px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* CONTENT */
+.content {
+  max-width: 640px;
+}
+
+.tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #2563eb;
+  margin-bottom: 14px;
+  display: inline-block;
+}
+
+.tagAlt {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #22e6b3;
+  margin-bottom: 14px;
+  display: inline-block;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #0b1f33;
+  margin-bottom: 18px;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4b5563;
+  margin-bottom: 26px;
+}
+
+/* LIST */
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 14px;
+  font-size: 15px;
+  color: #374151;
+}
+
+.list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #2563eb;
+  font-size: 22px;
+}
+
+/* IMAGE WRAPPER – KEY FIX */
+.imageWrap {
+  width: 100%;
+  height: 420px;              /* DESKTOP HEIGHT */
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* PHOTO IMAGE */
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
+}
+
+/* GRAPHIC / ILLUSTRATION */
+.graphic {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;       /* IMPORTANT for PNG/diagram */
+}
+
+/* MOBILE FIX */
+@media (max-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .imageWrap {
+   order: 2;            /* MOBILE HEIGHT */
+  }
+
+  .title {
+    font-size: 30px;
+  }
+}
+
+
+@media (max-width: 394px) {
+
+}
