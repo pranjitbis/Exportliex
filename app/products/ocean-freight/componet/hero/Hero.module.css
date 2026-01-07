@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   min-height: 89vh;
-  background-image: url("https://images.unsplash.com/photo-1586521995568-39abaa0c2311");
+  background-image: url("/products/backgroundImg.jpg");
   background-size: cover;
   background-position: center;
   color: #ffffff;

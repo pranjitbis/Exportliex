@@ -1,5 +1,6 @@
 import React from "react";
 import Nav from "@/app/Home/component/Nav/page.jsx";
+import Footer from "@/app/Home/component/Footer/page.jsx";
 import TruckingHero from "./components/TruckingHero/page.jsx";
 import FeatureHighlights from "./components/FeatureHighlights/page.jsx";
 import WarehouseDD from "./components/WarehouseDD/page.jsx";
@@ -17,6 +18,7 @@ export default function page() {
       <PlatformInsights />
       <TrustSection />
       <TruckingFAQ />
+      <Footer />
     </div>
   );
 }

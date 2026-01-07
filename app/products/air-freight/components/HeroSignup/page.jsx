@@ -27,7 +27,7 @@ export default function HeroSignup() {
 
         {/* RIGHT FORM */}
         <div className={styles.formCard}>
-          <h3>Sign Up With Flexport</h3>
+          <h3>Sign Up With Exportliex</h3>
 
           <form className={styles.form}>
             <div className={styles.row}>

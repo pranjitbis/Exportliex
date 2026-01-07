@@ -199,7 +199,7 @@ export default function Page() {
                         Trucking
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/exportliex"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -218,7 +218,7 @@ export default function Page() {
                     <h4>CONTROL TOWER</h4>
                     <div className={styles.grid2x2}>
                       <Link
-                        href="/"
+                        href="/products/order-management"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -230,7 +230,7 @@ export default function Page() {
                         Order Management
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/buyers-consolidation"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -242,7 +242,7 @@ export default function Page() {
                         Buyer's Consolidation
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/booking-management"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -254,7 +254,7 @@ export default function Page() {
                         Booking Management
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/carbon-control"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -273,7 +273,7 @@ export default function Page() {
                     <h4>CUSTOMS & FINANCIAL SERVICES</h4>
                     <div className={styles.grid2x2}>
                       <Link
-                        href="/"
+                        href="/products/custom-brokerage"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >

@@ -10,6 +10,7 @@ import TrustSection from "./components/TrustSection/page.jsx";
 import ReportsSection from "./components/ReportsSection/page.jsx";
 import CTASection from "./components/CTASection/page.jsx";
 import FAQSection from "./components/FAQSection/page.jsx";
+import Footer from "@/app/Home/component/Footer/page.jsx"
 export default function page() {
   return (
     <div>
@@ -24,6 +25,7 @@ export default function page() {
       <ReportsSection />
       <CTASection />
       <FAQSection />
+      <Footer />
     </div>
   );
 }

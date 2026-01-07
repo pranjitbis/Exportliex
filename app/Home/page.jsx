@@ -8,6 +8,7 @@ import SupplyChainFlow from "./component/SupplyChainFlow/page";
 import BlogContent from "./component/blogContent/page";
 import GlobalServicesMap from "./component/GlobalServicesMap/page";
 import LatestInsights from "./component/LatestInsights/page";
+import Footer from "./component/Footer/page";
 import TalkToExpert from "./component/TalkToExpert/page";
 export default function page() {
   return (
@@ -21,6 +22,7 @@ export default function page() {
       <GlobalServicesMap />
       <LatestInsights />
       <TalkToExpert />
+      <Footer />
     </div>
   );
 }

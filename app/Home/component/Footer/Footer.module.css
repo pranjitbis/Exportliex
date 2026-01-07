@@ -1,0 +1,127 @@
+.footer {
+  background: #0c0f24;
+  color: #e5e7eb;
+}
+
+/* RED TORN EDGE */
+.redStrip {
+  width: 100%;
+  height: 0px;
+  overflow: hidden;
+  background: #0b0b0b;
+}
+
+
+
+/* MAIN GRID */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 80px 20px 60px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 60px;
+}
+
+/* BRAND */
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #9ca3af;
+  max-width: 420px;
+  margin-bottom: 24px;
+}
+
+/* SOCIAL ICONS */
+.socials {
+  display: flex;
+  gap: 14px;
+}
+
+.socials a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #1f2937;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb;
+  transition: all 0.25s ease;
+}
+
+.socials a:hover {
+  background: #d92d20;
+  transform: translateY(-2px);
+}
+
+/* LINKS */
+.links h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.links li {
+  margin-bottom: 10px;
+}
+
+.links a {
+  font-size: 16px;
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.links a:hover {
+  color: #ffffff;
+}
+
+/* BOTTOM BAR */
+.bottom {
+  border-top: 1px solid #1f2937;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  color: #9ca3af;
+  }
+
+.legal {
+  display: flex;
+  gap: 20px;
+}
+
+.legal a {
+  color: #9ca3af;
+  text-align: center;
+}
+
+.legal a:hover {
+  color: #ffffff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
