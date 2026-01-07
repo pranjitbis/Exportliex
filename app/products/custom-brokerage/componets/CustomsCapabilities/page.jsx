@@ -26,7 +26,8 @@ export default function CustomsCapabilities() {
   const sections = [
     {
       img: img1,
-      title: "Increase filing speed and accuracy with technology-first customs",
+      title:
+        "Increase filing speed and accuracy with technology-first customs",
       text: `Modern customs clearance demands speed, precision, and consistency.
       Digitally enabled workflows reduce manual effort and eliminate common
       errors in documentation and filings. With forwarder-agnostic support
