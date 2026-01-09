@@ -21,6 +21,7 @@ export default function page() {
       <OrderManagementTabs />
       <OnboardingExpertise />
       <FaqSection />
+      <Footer />
     </div>
   )
 }

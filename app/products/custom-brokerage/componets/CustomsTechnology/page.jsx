@@ -121,7 +121,6 @@ export default function CustomsTechnology() {
           <div className={styles.content} data-aos="fade-right">
             <h2 className={styles.title}>
               Introducing the Customs
-              <br />
               Technology Suite
             </h2>
 

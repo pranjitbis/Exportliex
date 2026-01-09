@@ -53,14 +53,14 @@
 }
 
 .title {
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-size: clamp(1.7rem, 4vw, 3.2rem);
   line-height: 1.15;
   font-weight: 700;
   margin-bottom: 1.25rem;
 }
 
 .text {
-  font-size: 1.05rem;
+  font-size: clamp(0.4rem, 3vw, 1.05rem);
   color: #e5e7eb;
   margin-bottom: 0.75rem;
 }
@@ -178,7 +178,7 @@
   }
 
   .card {
-    max-width: 520px;
+    margin: auto;
   }
 }
 
@@ -191,7 +191,4 @@
     max-width: 100%;
   }
 
-  .title {
-    font-size: 2rem;
-  }
 }

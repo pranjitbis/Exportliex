@@ -134,4 +134,10 @@
       transparent
     );
   }
+  .node p {
+  font-size: 12px;
+}
+.header p {
+  font-size: 12px;
+}
 }
