@@ -1,0 +1,76 @@
+.section {
+  width: 100%;
+  background: linear-gradient(90deg, #071f33, #082438);
+  padding: 0rem 1rem;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+
+/* CARD */
+.card {
+  padding: 3.5rem 2rem;
+  text-align: end;
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.card:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Highlight middle card */
+.highlight {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* VALUE */
+.value {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 800;
+  color: #a5b4fc;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.75rem;
+}
+
+/* LABEL */
+.label {
+  font-size: 1rem;
+  color: #e2e8f0;
+  font-weight: 500;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 2.75rem 1.5rem;
+  }
+
+  .card:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 480px) {
+  .value {
+    font-size: 2.25rem;
+  }
+
+  .label {
+    font-size: 0.95rem;
+  }
+}
