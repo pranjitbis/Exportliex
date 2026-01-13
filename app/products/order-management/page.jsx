@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import HeroOrderManagemen from "./componets/HeroSignup/page.jsx";
 import Nav from "@/app/Home/component/Nav/page.jsx";

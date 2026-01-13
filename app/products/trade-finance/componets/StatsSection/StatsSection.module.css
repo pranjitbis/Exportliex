@@ -1,0 +1,66 @@
+.statsSection {
+  background: linear-gradient(90deg, #0f70b6 0%, #052a44 100%);
+  padding: 0px 20px;
+}
+
+.statsGrid {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* CARD */
+.statCard {
+  padding: 50px 20px;
+  text-align: center;
+  color: #ffffff;
+  background: transparent;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.statCard:last-child {
+  border-right: none;
+}
+
+/* NUMBER */
+.statCard h3 {
+  font-size: clamp(2.6rem, 6vw, 3.8rem);
+  font-weight: 700;
+  color: #a5b4fc;
+  margin-bottom: 12px;
+}
+
+/* TEXT */
+.statCard p {
+  font-size: 1rem;
+  color: #e2e8f0;
+  opacity: 0.95;
+}
+
+/* HIGHLIGHT (CENTER CARD) */
+.highlight {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .statsSection {
+    padding: 70px 10px !important;
+  }
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .statCard {
+    border-right: none;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .highlight {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
