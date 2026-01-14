@@ -18,7 +18,15 @@
   gap: 36px;
   margin-bottom: 60px;
 }
+.herobahi {
+  height: 500px !important;
+  width: 100px;
+}
 
+.Tracks {
+  height: 90% !important;
+  width: 80% !important;
+}
 .step {
   background: none;
   border: none;
@@ -90,7 +98,6 @@
   height: 360px;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
 }
 
 .image {

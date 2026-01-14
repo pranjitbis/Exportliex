@@ -1,0 +1,99 @@
+.section {
+  padding: 100px 20px;
+  background: rgb(251, 251, 255);
+  text-align: center;
+}
+
+.heading {
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  color: #424242;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.tab {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  background: #eef2ff;
+  color: rgb(61, 61, 61);
+}
+
+.active {
+  background: #6366f1;
+  color: #ffffff;
+  border-color: #6366f1;
+}
+
+/* CONTENT */
+.contentWrap {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+/* TEXT */
+.text {
+  max-width: 480px;
+  text-align: left;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6366f1;
+  letter-spacing: 0.1em;
+}
+
+.text h3 {
+  font-size: 2rem;
+  margin: 14px 0;
+}
+
+.text p {
+  color: #475569;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+
+
+/* IMAGE */
+.image img {
+  width: 100%;
+  max-width: 720px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .text {
+    text-align: center;
+  }
+}

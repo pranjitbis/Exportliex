@@ -35,15 +35,12 @@ export default function FaqSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     AOS.init({
-      duration: 900,
+      duration: 800,
       easing: "ease-out-cubic",
-      once: false, // 🔥 IMPORTANT: allow replay
-      mirror: true, // 🔥 animate when scrolling back up
+      once: false, // animate every time
+      mirror: true, // animate on scroll up
       offset: 120,
     });
-
-    // 🔥 Refresh AOS when component mounts again
-    AOS.refresh();
   }, []);
   const toggleFAQ = (index) => {
     setActiveIndex(index === activeIndex ? null : index);

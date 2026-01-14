@@ -1,0 +1,115 @@
+.tradeFinance {
+  padding: 126px 0;
+  background: #f8fbfc;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 0 20px;
+  margin: auto;
+}
+
+/* ================= HEADER ================= */
+.header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.header h2 {
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.header p {
+  margin-top: 16px;
+  max-width: 720px;
+  margin-inline: auto;
+  color: #475569;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* ================= ROW ================= */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 64px;
+  margin-bottom: 96px;
+}
+
+/* Desktop reverse */
+.reverse {
+  flex-direction: row-reverse;
+}
+
+/* ================= CONTENT ================= */
+.content {
+  flex: 1;
+  max-width: 520px;
+}
+
+.content h3 {
+  font-size: clamp(1.3rem, 3vw, 2.2rem);
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 16px;
+}
+
+.content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #334155;
+  margin-bottom: 16px;
+}
+
+/* ================= IMAGE ================= */
+.image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.image img {
+  width: 100%;
+  max-width: 720px;
+  border-radius: 20px;
+}
+
+/* ================= MOBILE FIX ================= */
+@media (max-width: 900px) {
+  .row {
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  /* FORCE SAME ORDER ON MOBILE (LIKE SCREENSHOT) */
+
+  .content,
+  .image img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 498px) {
+  .header p {
+    font-size: 0.8rem ;
+    margin-top: 4px;
+  }
+  
+}
+@media (max-width: 600px) {
+  .tradeFinance {
+    padding: 64px 0;
+  }
+
+  .row {
+    margin-bottom: 72px;
+  }
+
+  .content p {
+    font-size: 0.95rem;
+  }
+}

@@ -187,7 +187,7 @@ export default function Page() {
                         Air Freight
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/trucking"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -285,7 +285,7 @@ export default function Page() {
                         Customs Brokerage
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/trade-finance"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -309,7 +309,7 @@ export default function Page() {
                         Duty Drawback
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/cargo-insurance"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -321,7 +321,7 @@ export default function Page() {
                         Insurance
                       </Link>
                       <Link
-                        href="/"
+                        href="/trade-advisory"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >

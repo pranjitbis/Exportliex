@@ -36,8 +36,8 @@ const steps = [
     title: "Track Every Shipment in Real Time",
     desc: `Monitor shipment milestones and locations across all transport modes.
     Receive proactive alerts for delays and disruptions.`,
-    image:
-      "https://images.unsplash.com/photo-1605902711622-cfb43c44367f?auto=format&fit=crop&w=1200&q=80",
+    image: "https://cdn-icons-png.freepik.com/512/16919/16919219.png",
+    imageClass: "track-step-image", // Custom class only for Track
   },
   {
     label: "Clear",
@@ -58,7 +58,6 @@ const steps = [
       "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
   },
 ];
-
 export default function SupplyChainFlow() {
   const [active, setActive] = useState(0);
 
@@ -95,13 +94,17 @@ export default function SupplyChainFlow() {
 
         <div
           key={steps[active].image}
-          className={`${styles.imageWrap} ${styles.imageAnim}`}
+          className={`${styles.imageWrap} ${styles.imageAnim} ${
+            steps[active].label === "Track" ? styles.herobahi : ""
+          }`}
         >
-          <img
-            src={steps[active].image}
-            alt={steps[active].label}
-            className={styles.image}
-          />
+        <img
+  src={steps[active].image}
+  alt={steps[active].label}
+  className={`${styles.image} ${
+    steps[active].label === "Track" ? styles.Tracks : ""
+  }`}
+/>
         </div>
       </div>
     </section>
