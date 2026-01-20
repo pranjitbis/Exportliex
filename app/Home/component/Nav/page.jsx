@@ -1083,7 +1083,7 @@ export default function Page() {
                     Trade Finance
                   </Link>
                   <Link
-                    href="/"
+                    href="/products/duty-drawback"
                     onClick={closeMobileMenu}
                     className={styles.mobileLinkWithIcon}
                   >
