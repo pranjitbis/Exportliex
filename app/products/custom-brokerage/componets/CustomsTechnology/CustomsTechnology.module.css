@@ -43,7 +43,7 @@
 }
 
 .text {
- font-size: clamp(11px, 3vw, 16px);
+  font-size: clamp(11px, 3vw, 16px);
   line-height: 1.7;
   color: #475569;
   margin-bottom: 16px;
@@ -78,7 +78,9 @@
   align-items: center;
   justify-content: center;
   gap: 14px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .card:hover {
@@ -102,6 +104,9 @@
   .container {
     grid-template-columns: 1fr;
     gap: 60px;
+  }
+  .content {
+    max-width: 1120px;
   }
 
   .grid {

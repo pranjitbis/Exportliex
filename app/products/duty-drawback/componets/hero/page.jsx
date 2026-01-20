@@ -1,4 +1,5 @@
 import styles from "./Hero.module.css";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
 
 export default function Hero() {
   return (
@@ -9,24 +10,19 @@ export default function Hero() {
         {/* LEFT CONTENT */}
         <div className={styles.left}>
           <div className={styles.badge}>
-            <span className={styles.icon}>🛃</span>
-            <span>CUSTOMS BROKERAGE</span>
+            <span className={styles.icon}>
+              <FaMoneyBillTransfer />
+            </span>
+            <span>DUTY DRAWBACK SOLUTION</span>
           </div>
 
-          <h1 className={styles.title}>
-            Simplified Customs Clearance, Built for Global Trade
-          </h1>
+          <h1 className={styles.title}>Effortless Duty Drawback Claim Management</h1>
 
           <p className={styles.text}>
-            Manage customs clearance with confidence through a centralized
-            platform that gives you real-time visibility into filings,
-            documentation, and clearance status across every shipment.
-          </p>
-
-          <p className={styles.subText}>
-            Our customs brokerage services help reduce delays, control duty
-            costs, and keep your cargo moving smoothly across borders—backed by
-            expert support and compliance-driven workflows.
+            Exportliex helps exporters track eligible shipments, manage duty
+            drawback documentation, and claim refunds accurately through a
+            centralized platform that improves compliance, speeds up processing,
+            and strengthens cash flow visibility.
           </p>
         </div>
 
@@ -48,7 +44,7 @@ export default function Hero() {
 
           <div className={styles.field}>
             <label>Work Email*</label>
-            <input type="email" placeholder="Work Email" />
+            <input type="email" placeholder="Business Email Address" />
           </div>
 
           <div className={styles.fieldGrid}>
@@ -63,7 +59,7 @@ export default function Hero() {
 
             <div className={styles.field}>
               <label>Business Phone*</label>
-              <input type="tel" placeholder="Business Phone" />
+              <input type="tel" placeholder="Contact Number" />
             </div>
           </div>
 
@@ -75,7 +71,7 @@ export default function Hero() {
             </span>
           </div>
 
-          <button className={styles.submitBtn}>Get Connected</button>
+          <button className={styles.submitBtn}>Request Demo</button>
         </div>
       </div>
     </section>

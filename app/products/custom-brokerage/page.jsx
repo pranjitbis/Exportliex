@@ -3,7 +3,6 @@ import Nav from "@/app/Home/component/Nav/page"
 import Footer from "@/app/Home/component/Footer/page"
 import Hero from "./componets/hero/page"
 import CustomsTechnology from "./componets/CustomsTechnology/page"
-import TrustSection from "./componets/TrustSection/page"
 import TransformingCustoms from "./componets/TransformingCustoms/page"
 import TariffConfidence from "./componets/TariffConfidence/page"
 import CustomsCapabilities from "./componets/CustomsCapabilities/page"
@@ -18,7 +17,6 @@ export default function page() {
       <Nav />
       <Hero />
       <CustomsTechnology />
-      <TrustSection />
       <TransformingCustoms />
       <TariffConfidence />
       <CustomsCapabilities />

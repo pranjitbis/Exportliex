@@ -1,0 +1,82 @@
+.section {
+  background: linear-gradient(280deg, #1082da, #061f33);
+  padding: 30px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.content {
+  color: #ffffff;
+}
+
+.quoteIcon {
+  font-size: 64px;
+  font-weight: 700;
+  color: #5b6cff;
+  line-height: 1;
+}
+
+.quote {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #e2eaf2;
+  margin-bottom: 32px;
+}
+
+.author strong {
+  display: block;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.author span {
+  font-size: 14px;
+  color: #9fb3c8;
+}
+
+/* RIGHT CARD */
+.brandCard {
+  background: linear-gradient(145deg, #0b2a42, #0f3554);
+  border-radius: 14px;
+  padding: 48px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+.brandInner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.brandName {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.brandTag {
+  font-size: 14px;
+  color: #a9bdd2;
+}
+@media (max-width: 1184px) {
+  .container {
+    grid-template-columns: 8fr 1fr;
+  }
+  .quote {
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 474px) {
+   .container {
+    grid-template-columns: none;
+    text-align: center;
+  }
+}

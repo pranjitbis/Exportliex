@@ -1,0 +1,143 @@
+.section {
+  background: #eff7fd;
+  padding: 120px 20px;
+}
+
+/* HEADER */
+.header {
+  margin: 0 auto 100px;
+  text-align: center;
+}
+
+.header h2 {
+  font-size: 42px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 16px;
+}
+
+.header p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #475569;
+  max-width: 660px;
+  margin: auto;
+}
+
+/* DIAGRAM */
+.diagram {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 80px 40px;
+}
+
+/* NODE */
+.node {
+  position: relative;
+  width: calc(33.333% - 30px);
+  text-align: center;
+}
+
+/* ICON CIRCLE */
+.circle {
+  width: 72px;
+  height: 72px;
+  margin: auto;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  font-size: 30px;
+  color: #14b8a6;
+}
+
+.step {
+  display: block;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #64748b;
+}
+
+.node h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 12px 0 10px;
+}
+
+.node p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #475569;
+  max-width: 280px;
+  margin: auto;
+}
+
+/* CONNECTING LINE */
+.line {
+  position: absolute;
+  top: 36px;
+  right: -40px;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(to right, #14b8a6, transparent);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .node {
+    width: calc(50% - 20px);
+  }
+  .line {
+    position: absolute;
+    top: 46px;
+    right: 0px;
+    
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 80px 16px;
+  }
+
+  .node {
+    width: 100%;
+    padding-bottom: 20px; /* space for vertical line */
+  }
+
+  .header h2 {
+    font-size: 30px;
+  }
+
+  /* Convert line into vertical "|" */
+  .line {
+    position: absolute;
+    top: -52px;           /* below icon */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;          /* thin vertical line */
+    height: 48px;        /* line length */
+    background: linear-gradient(
+      to bottom,
+      #14b8a6,
+      transparent
+    );
+  }
+  .node p {
+  font-size: 12px;
+}
+.header p {
+  font-size: 12px;
+}
+}
