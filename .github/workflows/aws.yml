@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cd /var/www/exportliex
+            cd /var/www/Exportliex
             git pull origin main
             npm install
             npm run build
