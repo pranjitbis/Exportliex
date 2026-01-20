@@ -38,9 +38,3 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 
 
-scrub: false,
-        snap: {
-          snapTo: 1 / (steps.length - 1),
-          duration: 0.35,
-          ease: "power2.out",
-        },
