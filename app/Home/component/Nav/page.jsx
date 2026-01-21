@@ -297,7 +297,7 @@ export default function Page() {
                         Trade Finance
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/duty-drawback"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -321,7 +321,7 @@ export default function Page() {
                         Insurance
                       </Link>
                       <Link
-                        href="/trade-advisory"
+                        href="/products/trade-advisory"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
