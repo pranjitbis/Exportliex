@@ -376,40 +376,10 @@ export default function Page() {
               >
                 <div className={styles.megaMenuContent}>
                   <div className={styles.menuColumn}>
-                    <h4>PRODUCT RELEASES</h4>
-                    <div className={styles.grid2x2}>
-                      <Link
-                        href="/"
-                        onClick={closeMobileMenu}
-                        className={styles.linkWithIcon}
-                      >
-                        <span
-                          className={`${styles.navicons} ${styles.orangeIcon}`}
-                        >
-                          <MdNewReleases />
-                        </span>
-                        2025 Fall Release
-                      </Link>
-                      <Link
-                        href="/"
-                        onClick={closeMobileMenu}
-                        className={styles.linkWithIcon}
-                      >
-                        <span
-                          className={`${styles.navicons} ${styles.blueIcon}`}
-                        >
-                          <MdNewReleases />
-                        </span>
-                        2025 Winter Release
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className={styles.menuColumn}>
                     <h4>TECHNOLOGY SOLUTIONS</h4>
                     <div className={styles.grid2x2}>
                       <Link
-                        href="/"
+                        href="/products/exportliex"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >

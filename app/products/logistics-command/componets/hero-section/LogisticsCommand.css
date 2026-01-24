@@ -1,0 +1,155 @@
+.logisticsCommand {
+  position: relative;
+  min-height: 80vh;
+  background: linear-gradient(135deg, #0b1220, #111a2e);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* BACKGROUND */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 70% 40%,
+    rgba(79, 112, 255, 0.25),
+    transparent 55%
+  );
+}
+
+/* LAYOUT */
+.container {
+  position: relative;
+  max-width: 1600px;
+  margin: auto;
+  padding: 80px 24px;
+  display: grid;
+  grid-template-columns: 1.8fr 0.9fr;
+  gap: 60px;
+  z-index: 2;
+}
+
+.content {
+  max-width: 1200px;
+}
+
+/* TEXT */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: clamp(13px, 1.1vw, 14px);
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.6;
+  color: #cfd6ff;
+  margin-bottom: 32px;
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  background: #4f70ff;
+  border: none;
+  padding: 14px 26px;
+  color: #fff;
+  font-size: clamp(14px, 1.2vw, 16px);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.primaryBtn:hover {
+  background: #3f5be0;
+}
+
+.secondaryBtn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 14px 26px;
+  color: #fff;
+  font-size: clamp(14px, 1.2vw, 16px);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* FEATURES */
+.features {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(14px, 1.2vw, 15px);
+  color: #dfe4ff;
+}
+
+.featureItem svg {
+  font-size: clamp(18px, 1.6vw, 20px);
+  color: #6f8cff;
+}
+
+/* IMAGE */
+.visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageWrapper {
+  width: clamp(260px, 28vw, 360px);
+  height: clamp(260px, 28vw, 360px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at center,
+    rgba(79, 112, 255, 0.15),
+    transparent 65%
+  );
+}
+
+.commandImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.4));
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .actions,
+  .features {
+    justify-content: center;
+  }
+}
