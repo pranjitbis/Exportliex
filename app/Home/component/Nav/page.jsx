@@ -333,7 +333,7 @@ export default function Page() {
                         Trade Advisory
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/export-product-classification"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -391,7 +391,7 @@ export default function Page() {
                         Exportliex Platform
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/seller-central"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -403,7 +403,7 @@ export default function Page() {
                         Exportliex Control Tower
                       </Link>
                       <Link
-                        href="/"
+                        href="/products/logistics-command"
                         onClick={closeMobileMenu}
                         className={styles.linkWithIcon}
                       >
@@ -1153,7 +1153,7 @@ export default function Page() {
                     Exportliex Platform
                   </Link>
                   <Link
-                    href="/"
+                    href="/products/seller-central"
                     onClick={closeMobileMenu}
                     className={styles.mobileLinkWithIcon}
                   >
@@ -1163,7 +1163,7 @@ export default function Page() {
                     Exportliex Control Tower
                   </Link>
                   <Link
-                    href="/"
+                    href="/products/logistics-command"
                     onClick={closeMobileMenu}
                     className={styles.mobileLinkWithIcon}
                   >
