@@ -1,0 +1,277 @@
+[
+  {
+    "country": "Lesotho",
+    "code": "LS",
+    "rate": 50
+  },
+  {
+    "country": "Cambodia",
+    "code": "KH",
+    "rate": 49
+  },
+  {
+    "country": "Laos",
+    "code": "LA",
+    "rate": 48
+  },
+  {
+    "country": "Madagascar",
+    "code": "MG",
+    "rate": 47
+  },
+  {
+    "country": "Vietnam",
+    "code": "VN",
+    "rate": 46
+  },
+  {
+    "country": "Myanmar",
+    "code": "MM",
+    "rate": 44
+  },
+  {
+    "country": "Sri Lanka",
+    "code": "LK",
+    "rate": 44
+  },
+  {
+    "country": "Syria",
+    "code": "SY",
+    "rate": 41
+  },
+  {
+    "country": "Mauritius",
+    "code": "MU",
+    "rate": 40
+  },
+  {
+    "country": "Iraq",
+    "code": "IQ",
+    "rate": 39
+  },
+  {
+    "country": "Guyana",
+    "code": "GY",
+    "rate": 38
+  },
+  {
+    "country": "Bangladesh",
+    "code": "BD",
+    "rate": 37
+  },
+  {
+    "country": "Serbia",
+    "code": "RS",
+    "rate": 37
+  },
+  {
+    "country": "Botswana",
+    "code": "BW",
+    "rate": 37
+  },
+  {
+    "country": "Liechtenstein",
+    "code": "LI",
+    "rate": 37
+  },
+  {
+    "country": "Thailand",
+    "code": "TH",
+    "rate": 36
+  },
+  {
+    "country": "Bosnia and Herzegovina",
+    "code": "BA",
+    "rate": 35
+  },
+  {
+    "country": "China",
+    "code": "CN",
+    "rate": 34
+  },
+  {
+    "country": "North Macedonia",
+    "code": "MK",
+    "rate": 33
+  },
+  {
+    "country": "Indonesia",
+    "code": "ID",
+    "rate": 32
+  },
+  {
+    "country": "Angola",
+    "code": "AO",
+    "rate": 32
+  },
+  {
+    "country": "Taiwan",
+    "code": "TW",
+    "rate": 32
+  },
+  {
+    "country": "Fiji",
+    "code": "FJ",
+    "rate": 32
+  },
+  {
+    "country": "Switzerland",
+    "code": "CH",
+    "rate": 31
+  },
+  {
+    "country": "Libya",
+    "code": "LY",
+    "rate": 31
+  },
+  {
+    "country": "Moldova",
+    "code": "MD",
+    "rate": 31
+  },
+  {
+    "country": "South Africa",
+    "code": "ZA",
+    "rate": 30
+  },
+  {
+    "country": "Algeria",
+    "code": "DZ",
+    "rate": 30
+  },
+  {
+    "country": "Nauru",
+    "code": "NR",
+    "rate": 30
+  },
+  {
+    "country": "Pakistan",
+    "code": "PK",
+    "rate": 29
+  },
+  {
+    "country": "Tunisia",
+    "code": "TN",
+    "rate": 28
+  },
+  {
+    "country": "Kazakhstan",
+    "code": "KZ",
+    "rate": 27
+  },
+  {
+    "country": "India",
+    "code": "IN",
+    "rate": 26
+  },
+  {
+    "country": "South Korea",
+    "code": "KR",
+    "rate": 25
+  },
+  {
+    "country": "Japan",
+    "code": "JP",
+    "rate": 24
+  },
+  {
+    "country": "Malaysia",
+    "code": "MY",
+    "rate": 24
+  },
+  {
+    "country": "Brunei",
+    "code": "BN",
+    "rate": 24
+  },
+  {
+    "country": "Vanuatu",
+    "code": "VU",
+    "rate": 22
+  },
+  {
+    "country": "Ivory Coast",
+    "code": "CI",
+    "rate": 21
+  },
+  {
+    "country": "Namibia",
+    "code": "NA",
+    "rate": 21
+  },
+  {
+    "country": "Jordan",
+    "code": "JO",
+    "rate": 20
+  },
+  {
+    "country": "Zimbabwe",
+    "code": "ZW",
+    "rate": 18
+  },
+  {
+    "country": "Nicaragua",
+    "code": "NI",
+    "rate": 18
+  },
+  {
+    "country": "Philippines",
+    "code": "PH",
+    "rate": 17
+  },
+  {
+    "country": "Malawi",
+    "code": "MW",
+    "rate": 17
+  },
+  {
+    "country": "Zambia",
+    "code": "ZM",
+    "rate": 17
+  },
+  {
+    "country": "Israel",
+    "code": "IL",
+    "rate": 17
+  },
+  {
+    "country": "Mozambique",
+    "code": "MZ",
+    "rate": 16
+  },
+  {
+    "country": "Venezuela",
+    "code": "VE",
+    "rate": 15
+  },
+  {
+    "country": "Norway",
+    "code": "NO",
+    "rate": 15
+  },
+  {
+    "country": "Nigeria",
+    "code": "NG",
+    "rate": 14
+  },
+  {
+    "country": "Chad",
+    "code": "TD",
+    "rate": 13
+  },
+  {
+    "country": "Equatorial Guinea",
+    "code": "GQ",
+    "rate": 13
+  },
+  {
+    "country": "DR Congo",
+    "code": "CD",
+    "rate": 11
+  },
+  {
+    "country": "Cameroon",
+    "code": "CM",
+    "rate": 11
+  }
+]

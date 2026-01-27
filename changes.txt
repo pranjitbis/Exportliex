@@ -10,3 +10,10 @@ too and giude
 HS code
 
 tariff simulater
+
+
+
+
+https://comtradeapi.un.org/public/v1/getComtradeReleases
+
+https://api.worldbank.org/v2/country/IND/indicator/TM.TAX.MRCH.WM.AR.ZS?format=json
