@@ -40,6 +40,9 @@ import {
   FiChevronRight,
   FiUsers,
   FiTrendingUp as FiTrendingUpIcon,
+  FiBox,
+  FiAlertCircle,
+  FiLoader,
 } from "react-icons/fi";
 import {
   MdCalculate,
@@ -52,36 +55,129 @@ import {
 } from "react-icons/md";
 import { GiCargoShip, GiAirplaneDeparture } from "react-icons/gi";
 import ReactCountryFlag from "react-country-flag";
+import Nav from "@/app/Home/component/Nav/page";
+import Footer from "@/app/Home/component/Footer/page";
 
 // Import US bilateral tariffs data
 import usBilateralTariffs from "@/lib/usBilateralTariffs.json";
+// Import HS codes data from your JSON file
+import hsCodesData from "@/lib/full_hs_itc_codes.json";
 import styles from "./TariffCalculator.module.css";
 
-// Country data with ISO codes
+// Country data with ISO codes and currencies
 const countries = [
-  { code: "CN", name: "China", iso: "CHN", region: "Asia" },
-  { code: "IN", name: "India", iso: "IND", region: "Asia" },
-  { code: "US", name: "United States", iso: "USA", region: "North America" },
-  { code: "DE", name: "Germany", iso: "DEU", region: "Europe" },
-  { code: "JP", name: "Japan", iso: "JPN", region: "Asia" },
-  { code: "KR", name: "South Korea", iso: "KOR", region: "Asia" },
-  { code: "GB", name: "United Kingdom", iso: "GBR", region: "Europe" },
-  { code: "FR", name: "France", iso: "FRA", region: "Europe" },
-  { code: "BR", name: "Brazil", iso: "BRA", region: "South America" },
-  { code: "MX", name: "Mexico", iso: "MEX", region: "North America" },
-  { code: "CA", name: "Canada", iso: "CAN", region: "North America" },
-  { code: "AU", name: "Australia", iso: "AUS", region: "Oceania" },
-  { code: "RU", name: "Russia", iso: "RUS", region: "Europe" },
-  { code: "IT", name: "Italy", iso: "ITA", region: "Europe" },
-  { code: "ES", name: "Spain", iso: "ESP", region: "Europe" },
-  { code: "NL", name: "Netherlands", iso: "NLD", region: "Europe" },
+  { code: "CN", name: "China", iso: "CHN", region: "Asia", currency: "CNY" },
+  { code: "IN", name: "India", iso: "IND", region: "Asia", currency: "INR" },
+  {
+    code: "US",
+    name: "United States",
+    iso: "USA",
+    region: "North America",
+    currency: "USD",
+  },
+  {
+    code: "DE",
+    name: "Germany",
+    iso: "DEU",
+    region: "Europe",
+    currency: "EUR",
+  },
+  { code: "JP", name: "Japan", iso: "JPN", region: "Asia", currency: "JPY" },
+  {
+    code: "KR",
+    name: "South Korea",
+    iso: "KOR",
+    region: "Asia",
+    currency: "KRW",
+  },
+  {
+    code: "GB",
+    name: "United Kingdom",
+    iso: "GBR",
+    region: "Europe",
+    currency: "GBP",
+  },
+  { code: "FR", name: "France", iso: "FRA", region: "Europe", currency: "EUR" },
+  {
+    code: "BR",
+    name: "Brazil",
+    iso: "BRA",
+    region: "South America",
+    currency: "BRL",
+  },
+  {
+    code: "MX",
+    name: "Mexico",
+    iso: "MEX",
+    region: "North America",
+    currency: "MXN",
+  },
+  {
+    code: "CA",
+    name: "Canada",
+    iso: "CAN",
+    region: "North America",
+    currency: "CAD",
+  },
+  {
+    code: "AU",
+    name: "Australia",
+    iso: "AUS",
+    region: "Oceania",
+    currency: "AUD",
+  },
+  { code: "RU", name: "Russia", iso: "RUS", region: "Europe", currency: "RUB" },
+  { code: "IT", name: "Italy", iso: "ITA", region: "Europe", currency: "EUR" },
+  { code: "ES", name: "Spain", iso: "ESP", region: "Europe", currency: "EUR" },
+  {
+    code: "NL",
+    name: "Netherlands",
+    iso: "NLD",
+    region: "Europe",
+    currency: "EUR",
+  },
+];
+
+// Process HS codes data from JSON
+const processedHsCodesData = hsCodesData.map((item) => ({
+  code: item.itc_hs_code,
+  description: item.description,
+  category: item.category || "",
+}));
+
+// Transport modes
+const transportModes = [
+  {
+    value: "Ocean",
+    label: "Ocean Freight",
+    icon: <GiCargoShip />,
+    desc: "Economical shipping",
+  },
+  {
+    value: "Air",
+    label: "Air Cargo",
+    icon: <GiAirplaneDeparture />,
+    desc: "Express delivery",
+  },
+  {
+    value: "Land",
+    label: "Land Transport",
+    icon: <FiTruck />,
+    desc: "Road/Rail shipping",
+  },
 ];
 
 export default function TariffCalculator() {
   const [form, setForm] = useState({
-    hsCode: "",
-    shipmentValue: "",
-    country: "CN",
+    hsCode: "950300",
+    productDescription: "",
+    productValue: "1000",
+    productQuantity: "1",
+    quantityUnit: "CIF",
+    shippingCost: "0",
+    insuranceCost: "0",
+    originCountry: "CN",
+    destinationCountry: "US",
     transportMode: "Ocean",
     entryDate: "",
     loadingDate: "",
@@ -90,6 +186,9 @@ export default function TariffCalculator() {
   const [result, setResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [activeSection, setActiveSection] = useState("calculator");
+  const [productSuggestions, setProductSuggestions] = useState([]);
+  const [hsCodeValid, setHsCodeValid] = useState(true);
+  const [apiError, setApiError] = useState(null);
 
   // Global tariff data states
   const [globalTariffData, setGlobalTariffData] = useState([]);
@@ -119,6 +218,31 @@ export default function TariffCalculator() {
       loadingDate: today,
     }));
 
+    // Set initial product description based on HS code
+    const initialHsCode = "950300";
+    const hsCodeItem = processedHsCodesData.find(
+      (item) => item.code === initialHsCode,
+    );
+    if (hsCodeItem) {
+      setForm((prev) => ({
+        ...prev,
+        hsCode: initialHsCode,
+        productDescription: hsCodeItem.description,
+      }));
+    } else {
+      // If exact match not found, find closest match
+      const closestMatch = processedHsCodesData.find((item) =>
+        item.code.startsWith(initialHsCode.slice(0, 4)),
+      );
+      if (closestMatch) {
+        setForm((prev) => ({
+          ...prev,
+          hsCode: initialHsCode,
+          productDescription: closestMatch.description,
+        }));
+      }
+    }
+
     // Load global tariff data on mount
     fetchGlobalTariffData();
   }, []);
@@ -130,6 +254,7 @@ export default function TariffCalculator() {
         try {
           const res = await fetch(
             `https://api.worldbank.org/v2/country/${country.iso}/indicator/TM.TAX.MRCH.WM.AR.ZS?format=json`,
+            { next: { revalidate: 86400 } },
           );
           const data = await res.json();
 
@@ -191,47 +316,201 @@ export default function TariffCalculator() {
     return country ? country.name : code;
   };
 
+  const getCurrencyByCountry = (countryCode) => {
+    const country = countries.find((c) => c.code === countryCode);
+    return country ? country.currency : "USD";
+  };
+
+  const validateHsCode = (hsCode) => {
+    if (!hsCode) return false;
+    // Check if HS code exists in database
+    const isValid = processedHsCodesData.some(
+      (item) =>
+        item.code === hsCode ||
+        item.code.startsWith(hsCode.slice(0, 4)) ||
+        item.code.startsWith(hsCode.slice(0, 6)),
+    );
+    return isValid;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    const updatedForm = { ...form, [name]: value };
+
+    // Update product description when HS code changes
+    if (name === "hsCode") {
+      // Validate HS code
+      const isValid = validateHsCode(value);
+      setHsCodeValid(isValid);
+
+      // Find exact or partial match
+      let matchedItem = null;
+
+      // First try exact match
+      matchedItem = processedHsCodesData.find((item) => item.code === value);
+
+      // If no exact match, try 6-digit match
+      if (!matchedItem && value.length >= 6) {
+        matchedItem = processedHsCodesData.find((item) =>
+          item.code.startsWith(value.slice(0, 6)),
+        );
+      }
+
+      // If no 6-digit match, try 4-digit match
+      if (!matchedItem && value.length >= 4) {
+        matchedItem = processedHsCodesData.find((item) =>
+          item.code.startsWith(value.slice(0, 4)),
+        );
+      }
+
+      if (matchedItem) {
+        updatedForm.productDescription = matchedItem.description;
+      } else {
+        updatedForm.productDescription = "";
+      }
+
+      // Show suggestions for partial matches
+      if (value.length >= 2) {
+        const suggestions = processedHsCodesData
+          .filter(
+            (item) =>
+              item.code.includes(value) ||
+              item.description.toLowerCase().includes(value.toLowerCase()),
+          )
+          .slice(0, 5);
+        setProductSuggestions(suggestions);
+      } else {
+        setProductSuggestions([]);
+      }
+    }
+
+    setForm(updatedForm);
+    setApiError(null); // Clear any previous errors when user makes changes
+  };
+
+  const selectProductSuggestion = (suggestion) => {
+    setForm({
+      ...form,
+      hsCode: suggestion.code,
+      productDescription: suggestion.description,
+    });
+    setProductSuggestions([]);
+    setHsCodeValid(true);
   };
 
   const resetForm = () => {
     setForm({
       hsCode: "",
-      shipmentValue: "",
-      country: "CN",
+      productDescription: "",
+      productValue: "",
+      productQuantity: "",
+      quantityUnit: "CIF",
+      shippingCost: "0",
+      insuranceCost: "0",
+      originCountry: "CN",
+      destinationCountry: "US",
       transportMode: "Ocean",
       entryDate: new Date().toISOString().split("T")[0],
       loadingDate: new Date().toISOString().split("T")[0],
     });
     setResult(null);
+    setProductSuggestions([]);
+    setHsCodeValid(true);
+    setApiError(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setApiError(null);
 
     try {
-      const res = await fetch("/api/tariff", {
+      // Validate HS code
+      if (!validateHsCode(form.hsCode)) {
+        setApiError("Please enter a valid HS code");
+        setIsLoading(false);
+        return;
+      }
+
+      // Validate numeric inputs
+      const productValue = parseFloat(form.productValue);
+      const productQuantity = parseFloat(form.productQuantity);
+      const shippingCost = parseFloat(form.shippingCost || 0);
+      const insuranceCost = parseFloat(form.insuranceCost || 0);
+
+      if (isNaN(productValue) || productValue <= 0) {
+        setApiError("Product value must be a positive number");
+        setIsLoading(false);
+        return;
+      }
+
+      if (isNaN(productQuantity) || productQuantity <= 0) {
+        setApiError("Product quantity must be a positive number");
+        setIsLoading(false);
+        return;
+      }
+
+      if (isNaN(shippingCost) || shippingCost < 0) {
+        setApiError("Shipping cost must be a positive number or zero");
+        setIsLoading(false);
+        return;
+      }
+
+      if (isNaN(insuranceCost) || insuranceCost < 0) {
+        setApiError("Insurance cost must be a positive number or zero");
+        setIsLoading(false);
+        return;
+      }
+
+      // Prepare form data for API - EXACTLY matching the API expected format
+      const formData = {
+        hsCode: form.hsCode,
+        productDescription: form.productDescription,
+        productValue: form.productValue,
+        productQuantity: form.productQuantity,
+        quantityUnit: form.quantityUnit,
+        shippingCost: form.shippingCost || "0",
+        insuranceCost: form.insuranceCost || "0",
+        originCountry: form.originCountry,
+        destinationCountry: form.destinationCountry,
+        transportMode: form.transportMode,
+        entryDate: form.entryDate,
+        loadingDate: form.loadingDate,
+      };
+
+      console.log("Sending API request with data:", formData);
+
+      // Call the API
+      const response = await fetch("/api/tariff", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("API Response:", data);
 
       if (data.success) {
         setResult(data);
-        // Scroll to results
         document
           .getElementById("results-section")
           ?.scrollIntoView({ behavior: "smooth" });
       } else {
-        console.error("Calculation failed:", data.error);
+        throw new Error(data.error || "Failed to calculate tariff");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Calculation error:", error);
+      setApiError(
+        error.message ||
+          "An error occurred while calculating. Please try again.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -305,14 +584,16 @@ export default function TariffCalculator() {
     totalCountries: usBilateralTariffs.length,
   };
 
-  // Get color based on tariff rate
   const getRateColor = (rate) => {
-    if (!rate) return "#64748b";
-    if (rate < 5) return "#059669";
-    if (rate < 10) return "#d97706";
-    if (rate < 15) return "#dc2626";
-    if (rate < 20) return "#b91c1c";
-    if (rate < 30) return "#991b1b";
+    rate = Number(rate);
+
+    if (isNaN(rate)) return "#64748b";
+
+    if (rate < 5) return "#16a34a";
+    if (rate < 10) return "#f59e0b";
+    if (rate < 15) return "#f97316";
+    if (rate < 20) return "#ef4444";
+    if (rate < 30) return "#dc2626";
     return "#7f1d1d";
   };
 
@@ -327,613 +608,899 @@ export default function TariffCalculator() {
     }
   };
 
-  return (
-    <LazyMotion features={domAnimation}>
-      <div className={styles.container}>
-        {/* Hero Header */}
-        <motion.div
-          className={styles.hero}
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className={styles.heroContent}>
-            <motion.div
-              className={styles.heroBadge}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.3, type: "spring" }}
-            >
-              <FiShield />
-              <span>Enterprise Intelligence Platform</span>
-            </motion.div>
-            <h1 className={styles.heroTitle}>
-              Global{" "}
-              <span className={styles.highlight}>Tariff Intelligence</span>
-            </h1>
-            <p className={styles.heroSubtitle}>
-              Real-time customs duty calculator powered by World Bank API data
-              with advanced analytics and global trade insights
-            </p>
+  // Format HS code for display
+  const formatHSCode = (hsCode) => {
+    if (!hsCode) return "";
+    // Ensure it's a string
+    const code = String(hsCode);
+    // Format as XX.XX.XX.XX if 8+ digits
+    if (code.length >= 8) {
+      return `${code.slice(0, 2)}.${code.slice(2, 4)}.${code.slice(4, 6)}.${code.slice(6, 8)}`;
+    }
+    // Format as XX.XX.XX if 6 digits
+    if (code.length >= 6) {
+      return `${code.slice(0, 2)}.${code.slice(2, 4)}.${code.slice(4, 6)}`;
+    }
+    // Format as XX.XX if 4 digits
+    if (code.length >= 4) {
+      return `${code.slice(0, 2)}.${code.slice(2, 4)}`;
+    }
+    return code;
+  };
 
-            {/* Feature Badges */}
-            <div className={styles.featureBadges}>
-              <div className={styles.featureBadge}>
-                <FiDatabase />
-                <span>Live API Data</span>
-              </div>
-              <div className={styles.featureBadge}>
-                <MdPublic />
-                <span>16+ Countries</span>
-              </div>
-              <div className={styles.featureBadge}>
-                <MdAnalytics />
-                <span>Advanced Analytics</span>
-              </div>
-              <div className={styles.featureBadge}>
-                <FiClock />
-                <span>Real-time Updates</span>
+  // Calculate CIF locally for display
+  const calculateLocalCIF = () => {
+    const productValue = parseFloat(form.productValue) || 0;
+    const shippingCost = parseFloat(form.shippingCost) || 0;
+    const insuranceCost = parseFloat(form.insuranceCost) || 0;
+    return (productValue + shippingCost + insuranceCost).toFixed(2);
+  };
+
+  // Get the data for display from result
+  const getDisplayData = () => {
+    if (!result) return null;
+
+    // Use the structured display data from API if available
+    if (result.display) {
+      return result.display;
+    }
+
+    // Fallback to basic display
+    return {
+      dutySection: {
+        title: "Duty & Tax Charges",
+        items: [
+          {
+            label: "Duty",
+            amount: `${result.dutyAmount} USD`,
+            rate: `Rate of ${result.tariffRate} %`,
+          },
+          {
+            label: "VAT",
+            amount: `${result.vatAmount} USD`,
+            rate: `Rate of ${result.vatRate} %`,
+          },
+          {
+            label: "Total",
+            amount: `${result.totalDutyTax} USD`,
+            rate: null,
+          },
+        ],
+      },
+      landedCostSection: {
+        title: "Your Total Landed Cost Calculation",
+        items: [
+          {
+            label: "Value of Goods",
+            amount: `${result.productValue} ${result.originCurrency}`,
+          },
+          {
+            label: "Duty",
+            amount: `${result.dutyAmount} USD`,
+          },
+          {
+            label: "VAT",
+            amount: `${result.vatAmount} USD`,
+          },
+          {
+            label: "Shipping",
+            amount: `${result.shippingCost} ${result.originCurrency}`,
+          },
+          {
+            label: "Insurance",
+            amount: `${result.insuranceCost} ${result.originCurrency}`,
+          },
+          {
+            label: "Total",
+            amount: `${result.totalLandedCost} USD`,
+          },
+        ],
+      },
+    };
+  };
+
+  return (
+    <>
+    <Nav />
+      <LazyMotion features={domAnimation}>
+        <div className={styles.container}>
+          {/* Hero Header */}
+          <motion.div
+            className={styles.hero}
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className={styles.heroContent}>
+              <motion.div
+                className={styles.heroBadge}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.3, type: "spring" }}
+              >
+                <FiShield />
+                <span>Enterprise Intelligence Platform</span>
+              </motion.div>
+              <h1 className={styles.heroTitle}>
+                Global{" "}
+                <span className={styles.highlight}>Tariff Intelligence</span>
+              </h1>
+              <p className={styles.heroSubtitle}>
+                Real-time customs duty calculator powered by World Bank API data
+                with advanced analytics and global trade insights
+              </p>
+
+              {/* Feature Badges */}
+              <div className={styles.featureBadges}>
+                <div className={styles.featureBadge}>
+                  <FiDatabase />
+                  <span>Live API Data</span>
+                </div>
+                <div className={styles.featureBadge}>
+                  <MdPublic />
+                  <span>16+ Countries</span>
+                </div>
+                <div className={styles.featureBadge}>
+                  <MdAnalytics />
+                  <span>Advanced Analytics</span>
+                </div>
+                <div className={styles.featureBadge}>
+                  <FiClock />
+                  <span>Real-time Updates</span>
+                </div>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Section Navigation */}
-        <motion.div
-          className={styles.sectionNavigation}
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          <div className={styles.sectionContainer}>
-            <button
-              className={`${styles.sectionButton} ${activeSection === "calculator" ? styles.activeSection : ""}`}
-              onClick={() => setActiveSection("calculator")}
-            >
-              <MdCalculate />
-              <span>Duty Calculator</span>
-            </button>
-            <button
-              className={`${styles.sectionButton} ${activeSection === "global" ? styles.activeSection : ""}`}
-              onClick={() => setActiveSection("global")}
-            >
-              <FiGlobe />
-              <span>Global Rates</span>
-            </button>
-            <button
-              className={`${styles.sectionButton} ${activeSection === "usTariffs" ? styles.activeSection : ""}`}
-              onClick={() => setActiveSection("usTariffs")}
-            >
-              <FiFlag />
-              <span>US Bilateral Tariffs</span>
-            </button>
-          </div>
-        </motion.div>
-
-        {/* Main Content */}
-        <div className={styles.mainContent}>
-          <AnimatePresence mode="wait">
-            {/* Calculator Section */}
-            {activeSection === "calculator" && (
-              <motion.div
-                className={styles.sectionContent}
-                key="calculator"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
+          {/* Section Navigation */}
+          <motion.div
+            className={styles.sectionNavigation}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <div className={styles.sectionContainer}>
+              <button
+                className={`${styles.sectionButton} ${activeSection === "calculator" ? styles.activeSection : ""}`}
+                onClick={() => setActiveSection("calculator")}
               >
-                <div className={styles.calculatorGrid}>
-                  {/* Left Panel - Input Form */}
-                  <motion.div
-                    className={styles.inputPanel}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <div className={styles.panelHeader}>
-                      <div className={styles.panelTitle}>
-                        <MdOutlineDescription />
-                        <div>
-                          <h2>Import Details</h2>
-                          <p className={styles.panelSubtitle}>
-                            Enter shipment specifications for duty calculation
-                          </p>
+                <MdCalculate />
+                <span>Duty Calculator</span>
+              </button>
+              <button
+                className={`${styles.sectionButton} ${activeSection === "global" ? styles.activeSection : ""}`}
+                onClick={() => setActiveSection("global")}
+              >
+                <FiGlobe />
+                <span>Global Rates</span>
+              </button>
+              <button
+                className={`${styles.sectionButton} ${activeSection === "usTariffs" ? styles.activeSection : ""}`}
+                onClick={() => setActiveSection("usTariffs")}
+              >
+                <FiFlag />
+                <span>US Bilateral Tariffs</span>
+              </button>
+            </div>
+          </motion.div>
+
+          {/* Main Content */}
+          <div className={styles.mainContent}>
+            <AnimatePresence mode="wait">
+              {/* Calculator Section */}
+              {activeSection === "calculator" && (
+                <motion.div
+                  className={styles.sectionContent}
+                  key="calculator"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className={styles.calculatorGrid}>
+                    {/* Left Panel - Input Form */}
+                    <motion.div
+                      className={styles.inputPanel}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <div className={styles.panelHeader}>
+                        <div className={styles.panelTitle}>
+                          <MdOutlineDescription />
+                          <div>
+                            <h2>Import Details</h2>
+                            <p className={styles.panelSubtitle}>
+                              Enter shipment specifications for duty calculation
+                            </p>
+                          </div>
                         </div>
+                        <motion.button
+                          className={styles.resetButton}
+                          onClick={resetForm}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <FiRefreshCw />
+                          <span>Reset</span>
+                        </motion.button>
                       </div>
-                      <motion.button
-                        className={styles.resetButton}
-                        onClick={resetForm}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <FiRefreshCw />
-                        <span>Reset</span>
-                      </motion.button>
-                    </div>
 
-                    <form className={styles.form} onSubmit={handleSubmit}>
-                      <div className={styles.formGrid}>
-                        {/* HS Code */}
-                        <div className={styles.inputGroup}>
-                          <label className={styles.inputLabel}>
-                            <div className={styles.labelIcon}>
-                              <FiPackage />
-                            </div>
-                            <div className={styles.labelContent}>
-                              <span>HS Classification</span>
-                              <small>Enter 6-10 digit code</small>
-                            </div>
-                          </label>
-                          <div className={styles.inputWrapper}>
-                            <input
-                              name="hsCode"
-                              value={form.hsCode}
-                              className={styles.inputField}
-                              onChange={handleChange}
-                              placeholder="e.g., 847130"
-                              required
-                              pattern="[0-9]{6,10}"
-                              title="Enter 6-10 digit HS code"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Shipment Value */}
-                        <div className={styles.inputGroup}>
-                          <label className={styles.inputLabel}>
-                            <div className={styles.labelIcon}>
-                              <FiDollarSign />
-                            </div>
-                            <div className={styles.labelContent}>
-                              <span>Shipment Value</span>
-                              <small>Total declared value</small>
-                            </div>
-                          </label>
-                          <div className={styles.currencyInput}>
-                            <span className={styles.currencySymbol}>USD</span>
-                            <input
-                              name="shipmentValue"
-                              type="number"
-                              value={form.shipmentValue}
-                              className={styles.inputField}
-                              onChange={handleChange}
-                              placeholder="0.00"
-                              min="0"
-                              step="0.01"
-                              required
-                            />
-                          </div>
-                        </div>
-
-                        {/* Country of Origin */}
-                        <div className={styles.inputGroup}>
-                          <label className={styles.inputLabel}>
-                            <div className={styles.labelIcon}>
-                              <FiGlobe />
-                            </div>
-                            <div className={styles.labelContent}>
-                              <span>Country of Origin</span>
-                              <small>Select import source</small>
-                            </div>
-                          </label>
-                          <div className={styles.selectWrapper}>
-                            <select
-                              name="country"
-                              value={form.country}
-                              className={styles.selectField}
-                              onChange={handleChange}
-                            >
-                              {countries.map((country) => (
-                                <option key={country.code} value={country.code}>
-                                  {country.name}
-                                </option>
-                              ))}
-                            </select>
-                            <div className={styles.selectFlag}>
-                              <ReactCountryFlag
-                                countryCode={form.country}
-                                svg
-                                style={{
-                                  width: "20px",
-                                  height: "20px",
-                                  borderRadius: "2px",
-                                }}
-                              />
-                            </div>
-                            <FiChevronDown className={styles.selectArrow} />
-                          </div>
-                        </div>
-
-                        {/* Transport Mode */}
-                        <div className={styles.inputGroup}>
-                          <label className={styles.inputLabel}>
-                            <div className={styles.labelIcon}>
-                              <FiTruck />
-                            </div>
-                            <div className={styles.labelContent}>
-                              <span>Transport Mode</span>
-                              <small>Select shipping method</small>
-                            </div>
-                          </label>
-                          <div className={styles.transportOptions}>
-                            {[
-                              {
-                                value: "Ocean",
-                                label: "Ocean Freight",
-                                icon: <GiCargoShip />,
-                                desc: "Economical shipping",
-                              },
-                              {
-                                value: "Air",
-                                label: "Air Cargo",
-                                icon: <GiAirplaneDeparture />,
-                                desc: "Express delivery",
-                              },
-                            ].map((option) => (
-                              <button
-                                key={option.value}
-                                type="button"
-                                className={`${styles.transportOption} ${form.transportMode === option.value ? styles.activeTransport : ""}`}
-                                onClick={() =>
-                                  setForm({
-                                    ...form,
-                                    transportMode: option.value,
-                                  })
-                                }
-                              >
-                                <div className={styles.transportIcon}>
-                                  {option.icon}
-                                </div>
-                                <div className={styles.transportContent}>
-                                  <span className={styles.transportLabel}>
-                                    {option.label}
-                                  </span>
-                                  <span className={styles.transportDesc}>
-                                    {option.desc}
-                                  </span>
-                                </div>
-                                {form.transportMode === option.value && (
-                                  <div className={styles.transportCheck}>
-                                    <FiCheckCircle />
-                                  </div>
-                                )}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Dates */}
-                        <div className={styles.dateGroup}>
+                      <form className={styles.form} onSubmit={handleSubmit}>
+                        <div className={styles.formGrid}>
+                          {/* Importing from */}
                           <div className={styles.inputGroup}>
                             <label className={styles.inputLabel}>
                               <div className={styles.labelIcon}>
-                                <FiCalendar />
+                                <FiGlobe />
                               </div>
                               <div className={styles.labelContent}>
-                                <span>Entry Date</span>
-                                <small>Customs clearance</small>
+                                <span>Importing from:</span>
                               </div>
                             </label>
-                            <input
-                              type="date"
-                              name="entryDate"
-                              value={form.entryDate}
-                              className={styles.inputField}
-                              onChange={handleChange}
-                              required
-                            />
+                            <div className={styles.countrySelectRow}>
+                              <div className={styles.selectWrapper}>
+                                <select
+                                  name="originCountry"
+                                  value={form.originCountry}
+                                  className={styles.selectField}
+                                  onChange={handleChange}
+                                >
+                                  {countries.map((country) => (
+                                    <option
+                                      key={country.code}
+                                      value={country.code}
+                                    >
+                                      {country.name}
+                                    </option>
+                                  ))}
+                                </select>
+                                <div className={styles.selectFlag}>
+                                  <ReactCountryFlag
+                                    countryCode={form.originCountry}
+                                    svg
+                                    style={{
+                                      width: "20px",
+                                      height: "20px",
+                                      borderRadius: "2px",
+                                    }}
+                                  />
+                                </div>
+                                <FiChevronDown className={styles.selectArrow} />
+                              </div>
+                              <div className={styles.currencyDisplay}>
+                                Currency:{" "}
+                                <strong>
+                                  {getCurrencyByCountry(form.originCountry)}
+                                </strong>
+                              </div>
+                            </div>
                           </div>
 
+                          {/* Product description with HS code */}
                           <div className={styles.inputGroup}>
                             <label className={styles.inputLabel}>
                               <div className={styles.labelIcon}>
-                                <FiCalendar />
+                                <FiPackage />
                               </div>
                               <div className={styles.labelContent}>
-                                <span>Loading Date</span>
-                                <small>Shipment departure</small>
+                                <span>Product description:</span>
+                                <small>Enter HS code (e.g., 950300)</small>
                               </div>
                             </label>
-                            <input
-                              type="date"
-                              name="loadingDate"
-                              value={form.loadingDate}
-                              className={styles.inputField}
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <motion.button
-                        className={styles.calculateButton}
-                        type="submit"
-                        disabled={isLoading}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        {isLoading ? (
-                          <>
-                            <div className={styles.buttonSpinner}></div>
-                            <span>Calculating...</span>
-                          </>
-                        ) : (
-                          <>
-                            <span>Calculate Import Duties</span>
-                            <FiArrowRight className={styles.buttonIcon} />
-                          </>
-                        )}
-                      </motion.button>
-                    </form>
-                  </motion.div>
-
-                  {/* Right Panel - Results */}
-                  <motion.div
-                    className={styles.resultsPanel}
-                    id="results-section"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: 0.1 }}
-                  >
-                    <div className={styles.panelHeader}>
-                      <div className={styles.panelTitle}>
-                        <MdOutlinePayment />
-                        <div>
-                          <h2>Duty Analysis</h2>
-                          <p className={styles.panelSubtitle}>
-                            Comprehensive breakdown
-                          </p>
-                        </div>
-                      </div>
-                      {result && (
-                        <div className={styles.resultCountry}>
-                          <ReactCountryFlag
-                            countryCode={result.country}
-                            svg
-                            style={{
-                              width: "20px",
-                              height: "20px",
-                              borderRadius: "2px",
-                            }}
-                          />
-                          <span>{result.country}</span>
-                        </div>
-                      )}
-                    </div>
-
-                    <AnimatePresence mode="wait">
-                      {!result ? (
-                        <motion.div
-                          className={styles.emptyState}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                        >
-                          <div className={styles.emptyIcon}>
-                            <FiPercent />
-                          </div>
-                          <h3>Ready for Calculation</h3>
-                          <p>
-                            Enter shipment details to generate comprehensive
-                            duty analysis
-                          </p>
-                          <div className={styles.emptyTips}>
-                            <div className={styles.tip}>
-                              <FiTarget />
-                              <span>Real-time World Bank tariff data</span>
-                            </div>
-                            <div className={styles.tip}>
-                              <FiLayers />
-                              <span>Detailed calculation breakdown</span>
-                            </div>
-                          </div>
-                        </motion.div>
-                      ) : (
-                        <motion.div
-                          className={styles.resultsContent}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -20 }}
-                        >
-                          {/* Summary Cards */}
-                          <div className={styles.summaryCards}>
-                            <div className={styles.summaryCard}>
-                              <div className={styles.cardHeader}>
-                                <span className={styles.cardLabel}>
-                                  Tariff Rate
-                                </span>
-                                <FiInfo className={styles.infoIcon} />
+                            <div className={styles.productInputContainer}>
+                              <div className={styles.productInput}>
+                                <input
+                                  name="hsCode"
+                                  value={form.hsCode}
+                                  className={`${styles.hsCodeInput} ${
+                                    !hsCodeValid ? styles.inputError : ""
+                                  }`}
+                                  onChange={handleChange}
+                                  placeholder="e.g., 950300"
+                                  required
+                                  pattern="[0-9]{4,10}"
+                                  title="Enter 4-10 digit HS code"
+                                />
                               </div>
-                              <div
-                                className={styles.cardValue}
-                                style={{
-                                  color: getRateColor(result.tariffRate),
-                                }}
+                              {!hsCodeValid && form.hsCode.length > 0 && (
+                                <div className={styles.errorMessage}>
+                                  <FiAlertCircle />
+                                  <span>Enter a valid HS code</span>
+                                </div>
+                              )}
+                              {productSuggestions.length > 0 && (
+                                <div className={styles.suggestionsDropdown}>
+                                  {productSuggestions.map((suggestion) => (
+                                    <div
+                                      key={suggestion.code}
+                                      className={styles.suggestionItem}
+                                      onClick={() =>
+                                        selectProductSuggestion(suggestion)
+                                      }
+                                    >
+                                      <span className={styles.suggestionCode}>
+                                        {suggestion.code}
+                                      </span>
+                                      <span className={styles.suggestionDesc}>
+                                        {suggestion.description}
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {form.productDescription && hsCodeValid && (
+                                <div className={styles.productDescription}>
+                                  <FiCheckCircle
+                                    className={styles.successIconSmall}
+                                  />
+                                  <span>{form.productDescription}</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Product value */}
+                          <div className={styles.inputGroup}>
+                            <label className={styles.inputLabel}>
+                              <div className={styles.labelIcon}>
+                                <FiDollarSign />
+                              </div>
+                              <div className={styles.labelContent}>
+                                <span>Product value:</span>
+                                <div className={styles.currencyNote}>
+                                  *In currency of origin (
+                                  {getCurrencyByCountry(form.originCountry)})
+                                </div>
+                              </div>
+                            </label>
+                            <div className={styles.currencyInputGroup}>
+                              <div className={styles.currencyInput}>
+                                <span className={styles.currencySymbol}>
+                                  {getCurrencyByCountry(form.originCountry)}
+                                </span>
+                                <input
+                                  name="productValue"
+                                  type="number"
+                                  value={form.productValue}
+                                  className={styles.inputField}
+                                  onChange={handleChange}
+                                  placeholder="0.00"
+                                  min="0"
+                                  step="0.01"
+                                  required
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Product Quantity */}
+                          <div className={styles.inputGroup}>
+                            <label className={styles.inputLabel}>
+                              <div className={styles.labelIcon}>
+                                <FiBox />
+                              </div>
+                              <div className={styles.labelContent}>
+                                <span>Product Quantity :</span>
+                              </div>
+                            </label>
+                            <div className={styles.quantityInputGroup}>
+                              <div className={styles.quantityInput}>
+                                <input
+                                  name="productQuantity"
+                                  type="number"
+                                  value={form.productQuantity}
+                                  className={styles.inputField}
+                                  onChange={handleChange}
+                                  placeholder="1"
+                                  min="0"
+                                  step="1"
+                                  required
+                                />
+                                <select
+                                  name="quantityUnit"
+                                  value={form.quantityUnit}
+                                  onChange={handleChange}
+                                  className={styles.unitSelect}
+                                >
+                                  <option value="CIF">CIF</option>
+                                  <option value="units">Units</option>
+                                  <option value="kg">kg</option>
+                                  <option value="liters">Liters</option>
+                                  <option value="meters">Meters</option>
+                                  <option value="square-meters">
+                                    Square Meters
+                                  </option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Shipping cost */}
+                          <div className={styles.inputGroup}>
+                            <label className={styles.inputLabel}>
+                              <div className={styles.labelIcon}>
+                                <FiTruck />
+                              </div>
+                              <div className={styles.labelContent}>
+                                <span>Shipping cost:</span>
+                              </div>
+                            </label>
+                            <div className={styles.currencyInputGroup}>
+                              <div className={styles.currencyInput}>
+                                <input
+                                  name="shippingCost"
+                                  type="number"
+                                  value={form.shippingCost}
+                                  className={styles.inputField}
+                                  onChange={handleChange}
+                                  placeholder="0.00"
+                                  min="0"
+                                  step="0.01"
+                                />
+                              </div>
+                              <div className={styles.currencyNote}>
+                                *In currency of origin
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Insurance cost */}
+                          <div className={styles.inputGroup}>
+                            <label className={styles.inputLabel}>
+                              <div className={styles.labelIcon}>
+                                <FiShield />
+                              </div>
+                              <div className={styles.labelContent}>
+                                <span>Insurance cost:</span>
+                              </div>
+                            </label>
+                            <div className={styles.currencyInputGroup}>
+                              <div className={styles.currencyInput}>
+                                <span className={styles.currencySymbol}>
+                                  {getCurrencyByCountry(form.originCountry)}
+                                </span>
+                                <input
+                                  name="insuranceCost"
+                                  type="number"
+                                  value={form.insuranceCost}
+                                  className={styles.inputField}
+                                  onChange={handleChange}
+                                  placeholder="0.00"
+                                  min="0"
+                                  step="0.01"
+                                />
+                              </div>
+                              <div className={styles.currencyNote}>
+                                *In currency of origin
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Destination Country */}
+                          <div className={styles.inputGroup}>
+                            <label className={styles.inputLabel}>
+                              <div className={styles.labelIcon}>
+                                <FiFlag />
+                              </div>
+                              <div className={styles.labelContent}>
+                                <span>Destination:</span>
+                                <small>Importing to</small>
+                              </div>
+                            </label>
+                            <div className={styles.selectWrapper}>
+                              <select
+                                name="destinationCountry"
+                                value={form.destinationCountry}
+                                className={styles.selectField}
+                                onChange={handleChange}
                               >
-                                {result.tariffRate}%
-                              </div>
-                              <div className={styles.cardSubtext}>
-                                Base: {result.baseRate}%
-                                {result.surchargeRate > 0 &&
-                                  ` + ${result.surchargeRate}% surcharge`}
-                              </div>
-                            </div>
-
-                            <div className={styles.summaryCard}>
-                              <div className={styles.cardHeader}>
-                                <span className={styles.cardLabel}>
-                                  Duty Amount
-                                </span>
-                                <FiDollarSign className={styles.infoIcon} />
-                              </div>
-                              <div className={styles.cardValue}>
-                                ${result.dutyAmount}
-                              </div>
-                              <div className={styles.cardSubtext}>
-                                Total shipment value
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Country Info */}
-                          <div className={styles.countrySection}>
-                            <div className={styles.countryHeader}>
-                              <div className={styles.countryFlag}>
+                                {countries.map((country) => (
+                                  <option
+                                    key={country.code}
+                                    value={country.code}
+                                  >
+                                    {country.name}
+                                  </option>
+                                ))}
+                              </select>
+                              <div className={styles.selectFlag}>
                                 <ReactCountryFlag
-                                  countryCode={result.country}
+                                  countryCode={form.destinationCountry}
                                   svg
                                   style={{
-                                    width: "48px",
-                                    height: "48px",
-                                    borderRadius: "4px",
-                                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                                    width: "20px",
+                                    height: "20px",
+                                    borderRadius: "2px",
                                   }}
                                 />
                               </div>
-                              <div className={styles.countryInfo}>
-                                <h3>
-                                  {result.countryName ||
-                                    getCountryName(result.country)}
-                                </h3>
-                                <div className={styles.countryMeta}>
-                                  <span className={styles.countryCode}>
-                                    {result.country}
-                                  </span>
-                                  <span className={styles.dataSource}>
-                                    <FiDatabase />
-                                    {result.dataSource || "World Bank API"}
-                                  </span>
-                                </div>
-                              </div>
+                              <FiChevronDown className={styles.selectArrow} />
                             </div>
                           </div>
 
-                          {/* Breakdown Grid */}
-                          <div className={styles.breakdownSection}>
-                            <h4 className={styles.breakdownTitle}>
-                              <FiLayers />
-                              Calculation Breakdown
-                            </h4>
-                            <div className={styles.breakdownGrid}>
-                              {[
-                                {
-                                  label: "Product",
-                                  value: result.product,
-                                  icon: <FiPackage />,
-                                },
-                                {
-                                  label: "HS Code",
-                                  value: result.hsCode,
-                                  icon: <FiFlag />,
-                                },
-                                {
-                                  label: "Shipment Value",
-                                  value: `$${parseFloat(result.shipmentValue).toLocaleString()}`,
-                                  icon: <FiDollarSign />,
-                                },
-                                {
-                                  label: "Transport",
-                                  value: result.transportMode,
-                                  icon: <FiTruck />,
-                                },
-                                {
-                                  label: "Entry Date",
-                                  value: result.entryDate,
-                                  icon: <FiCalendar />,
-                                },
-                                {
-                                  label: "Loading Date",
-                                  value: result.loadingDate,
-                                  icon: <FiCalendar />,
-                                },
-                              ].map((item, index) => (
-                                <div
-                                  key={index}
-                                  className={styles.breakdownItem}
+                          {/* Transport Mode */}
+                          <div className={styles.inputGroup}>
+                            <label className={styles.inputLabel}>
+                              <div className={styles.labelIcon}>
+                                <FiTruck />
+                              </div>
+                              <div className={styles.labelContent}>
+                                <span>Transport Mode</span>
+                                <small>Select shipping method</small>
+                              </div>
+                            </label>
+                            <div className={styles.transportOptions}>
+                              {transportModes.map((option) => (
+                                <button
+                                  key={option.value}
+                                  type="button"
+                                  className={`${styles.transportOption} ${form.transportMode === option.value ? styles.activeTransport : ""}`}
+                                  onClick={() =>
+                                    setForm({
+                                      ...form,
+                                      transportMode: option.value,
+                                    })
+                                  }
                                 >
-                                  <div className={styles.breakdownIcon}>
-                                    {item.icon}
+                                  <div className={styles.transportIcon}>
+                                    {option.icon}
                                   </div>
-                                  <div className={styles.breakdownContent}>
-                                    <span className={styles.breakdownLabel}>
-                                      {item.label}
+                                  <div className={styles.transportContent}>
+                                    <span className={styles.transportLabel}>
+                                      {option.label}
                                     </span>
-                                    <span className={styles.breakdownValue}>
-                                      {item.value}
+                                    <span className={styles.transportDesc}>
+                                      {option.desc}
                                     </span>
                                   </div>
-                                </div>
+                                  {form.transportMode === option.value && (
+                                    <div className={styles.transportCheck}>
+                                      <FiCheckCircle />
+                                    </div>
+                                  )}
+                                </button>
                               ))}
                             </div>
                           </div>
 
-                          {/* Action Buttons */}
-                          <div className={styles.actionButtons}>
-                            <button
-                              className={styles.actionButtonSecondary}
-                              onClick={() => {
-                                const exportData = {
-                                  timestamp: new Date().toISOString(),
-                                  ...result,
-                                };
-                                const blob = new Blob(
-                                  [JSON.stringify(exportData, null, 2)],
-                                  { type: "application/json" },
-                                );
-                                const url = URL.createObjectURL(blob);
-                                const a = document.createElement("a");
-                                a.href = url;
-                                a.download = `tariff-calculation-${new Date().toISOString().split("T")[0]}.json`;
-                                document.body.appendChild(a);
-                                a.click();
-                                document.body.removeChild(a);
-                                URL.revokeObjectURL(url);
-                              }}
-                            >
-                              <FiFileText />
-                              Export Report
-                            </button>
-                            <button
-                              className={styles.actionButtonPrimary}
-                              onClick={() => {
-                                alert("Analysis saved successfully!");
-                              }}
-                            >
-                              Save Analysis
-                            </button>
-                          </div>
+                          {/* Dates */}
+                          <div className={styles.dateGroup}>
+                            <div className={styles.inputGroup}>
+                              <label className={styles.inputLabel}>
+                                <div className={styles.labelIcon}>
+                                  <FiCalendar />
+                                </div>
+                                <div className={styles.labelContent}>
+                                  <span>Entry Date</span>
+                                  <small>Customs clearance</small>
+                                </div>
+                              </label>
+                              <input
+                                type="date"
+                                name="entryDate"
+                                value={form.entryDate}
+                                className={styles.inputField}
+                                onChange={handleChange}
+                                required
+                              />
+                            </div>
 
-                          {/* Disclaimer */}
-                          <div className={styles.disclaimer}>
-                            <FiInfo className={styles.disclaimerIcon} />
-                            <p>
-                              <strong>Disclaimer:</strong> Calculations utilize
-                              real-time World Bank tariff data. Final duties may
-                              vary based on specific product classification,
-                              trade agreements, and regulatory updates.
+                            <div className={styles.inputGroup}>
+                              <label className={styles.inputLabel}>
+                                <div className={styles.labelIcon}>
+                                  <FiCalendar />
+                                </div>
+                                <div className={styles.labelContent}>
+                                  <span>Loading Date</span>
+                                  <small>Shipment departure</small>
+                                </div>
+                              </label>
+                              <input
+                                type="date"
+                                name="loadingDate"
+                                value={form.loadingDate}
+                                className={styles.inputField}
+                                onChange={handleChange}
+                                required
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* API Error Message */}
+                        {apiError && (
+                          <div className={styles.apiError}>
+                            <FiAlertCircle />
+                            <span>{apiError}</span>
+                          </div>
+                        )}
+
+                        <motion.button
+                          className={styles.calculateButton}
+                          type="submit"
+                          disabled={isLoading || !hsCodeValid}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {isLoading ? (
+                            <>
+                              <div className={styles.buttonSpinner}></div>
+                              <span>Calculating...</span>
+                            </>
+                          ) : (
+                            <>
+                              <span>Calculate import duty & taxes</span>
+                              <FiArrowRight className={styles.buttonIcon} />
+                            </>
+                          )}
+                        </motion.button>
+                      </form>
+                    </motion.div>
+
+                    {/* Right Panel - Results */}
+                    <motion.div
+                      className={styles.resultsPanel}
+                      id="results-section"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: 0.1 }}
+                    >
+                      <div className={styles.panelHeader}>
+                        <div className={styles.panelTitle}>
+                          <MdOutlinePayment />
+                          <div>
+                            <h2>Duty & Tax Results</h2>
+                            <p className={styles.panelSubtitle}>
+                              Comprehensive breakdown like the reference image
                             </p>
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                </div>
-              </motion.div>
-            )}
+                        </div>
+                        {result && (
+                          <div className={styles.resultCountry}>
+                            <ReactCountryFlag
+                              countryCode={result.originCountry}
+                              svg
+                              style={{
+                                width: "20px",
+                                height: "20px",
+                                borderRadius: "2px",
+                              }}
+                            />
+                            <span>to</span>
+                            <ReactCountryFlag
+                              countryCode={result.destinationCountry}
+                              svg
+                              style={{
+                                width: "20px",
+                                height: "20px",
+                                borderRadius: "2px",
+                              }}
+                            />
+                          </div>
+                        )}
+                      </div>
 
-            {/* Global Tariff Rates Section */}
-            {activeSection === "global" && (
-              <motion.div
-                className={styles.sectionContent}
-                key="global"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className={styles.globalDashboard}>
+                      <AnimatePresence mode="wait">
+                        {!result ? (
+                          <motion.div
+                            className={styles.emptyState}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                          >
+                            <div className={styles.emptyIcon}>
+                              <FiPercent />
+                            </div>
+                            <h3>Ready for Calculation</h3>
+                            <p>
+                              Enter shipment details to generate comprehensive
+                              duty analysis like the reference image
+                            </p>
+                            <div className={styles.emptyTips}>
+                              <div className={styles.tip}>
+                                <FiTarget />
+                                <span>Real-time World Bank tariff data</span>
+                              </div>
+                              <div className={styles.tip}>
+                                <FiLayers />
+                                <span>Detailed calculation breakdown</span>
+                              </div>
+                              <div className={styles.tip}>
+                                <FiDatabase />
+                                <span>Live exchange rates from API</span>
+                              </div>
+                            </div>
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            className={styles.resultsContent}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                          >
+                            {/* Header showing countries */}
+                            <div className={styles.resultHeader}>
+                              <div className={styles.routeInfo}>
+                                <div className={styles.countryFlag}>
+                                  <ReactCountryFlag
+                                    countryCode={result.originCountry}
+                                    svg
+                                    style={{
+                                      width: "32px",
+                                      height: "32px",
+                                      borderRadius: "4px",
+                                    }}
+                                  />
+                                  <span>
+                                    {getCountryName(result.originCountry)}
+                                  </span>
+                                </div>
+                                <FiArrowRight className={styles.routeArrow} />
+                                <div className={styles.countryFlag}>
+                                  <ReactCountryFlag
+                                    countryCode={result.destinationCountry}
+                                    svg
+                                    style={{
+                                      width: "32px",
+                                      height: "32px",
+                                      borderRadius: "4px",
+                                    }}
+                                  />
+                                  <span>
+                                    {getCountryName(result.destinationCountry)}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className={styles.resultMeta}>
+                                <span className={styles.hsCodeDisplay}>
+                                  HS: {formatHSCode(result.hsCode)}
+                                </span>
+                                <span className={styles.calcDate}>
+                                  {result.calculationDate}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Duty & Tax Charges Section */}
+                            <div className={styles.dutyTaxSection}>
+                              <h3 className={styles.sectionTitle}>
+                                <FiPercent />
+                                Duty & Tax Charges
+                              </h3>
+                              {getDisplayData()?.dutySection.items.map(
+                                (item, index) => (
+                                  <div key={index} className={styles.chargeRow}>
+                                    <span className={styles.chargeLabel}>
+                                      {item.label}:
+                                    </span>
+                                    <span className={styles.chargeValue}>
+                                      {item.amount}
+                                      {item.rate && (
+                                        <span className={styles.rateNote}>
+                                          {item.rate}
+                                        </span>
+                                      )}
+                                    </span>
+                                  </div>
+                                ),
+                              )}
+                            </div>
+
+                            {/* Total Landed Cost Calculation */}
+                            <div className={styles.landedCostSection}>
+                              <h3 className={styles.sectionTitle}>
+                                <FiDollarSign />
+                                Your Total Landed Cost Calculation
+                              </h3>
+                              {getDisplayData()?.landedCostSection.items.map(
+                                (item, index) => (
+                                  <div key={index} className={styles.costRow}>
+                                    <span className={styles.costLabel}>
+                                      {item.label}:
+                                    </span>
+                                    <span className={styles.costValue}>
+                                      {item.amount}
+                                    </span>
+                                  </div>
+                                ),
+                              )}
+                            </div>
+
+                            {/* Exchange Rate */}
+                            <div className={styles.exchangeRate}>
+                              <FiInfo className={styles.exchangeIcon} />
+                              <span className={styles.exchangeText}>
+                                This was calculated using an exchange rate:{" "}
+                                <strong>
+                                  {result.originCurrency}:USD{" "}
+                                  {result.exchangeRate || "N/A"}
+                                </strong>
+                              </span>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className={styles.actionButtons}>
+                              <button
+                                className={styles.actionButtonSecondary}
+                                onClick={() => {
+                                  const exportData = {
+                                    timestamp: new Date().toISOString(),
+                                    calculationDate: result.calculationDate,
+                                    hsCode: result.hsCode,
+                                    productDescription:
+                                      result.productDescription,
+                                    originCountry: result.originCountry,
+                                    destinationCountry:
+                                      result.destinationCountry,
+                                    productValue: result.productValue,
+                                    productQuantity: result.productQuantity,
+                                    cifValue: result.cifValue,
+                                    dutyAmount: result.dutyAmount,
+                                    vatAmount: result.vatAmount,
+                                    totalDutyTax: result.totalDutyTax,
+                                    totalLandedCost: result.totalLandedCost,
+                                    exchangeRate: result.exchangeRate,
+                                    tariffRate: result.tariffRate,
+                                    vatRate: result.vatRate,
+                                    dataSource: result.dataSource,
+                                  };
+                                  const blob = new Blob(
+                                    [JSON.stringify(exportData, null, 2)],
+                                    { type: "application/json" },
+                                  );
+                                  const url = URL.createObjectURL(blob);
+                                  const a = document.createElement("a");
+                                  a.href = url;
+                                  a.download = `tariff-calculation-${new Date().toISOString().split("T")[0]}.json`;
+                                  document.body.appendChild(a);
+                                  a.click();
+                                  document.body.removeChild(a);
+                                  URL.revokeObjectURL(url);
+                                }}
+                              >
+                                <FiFileText />
+                                Export Report
+                              </button>
+                              <button
+                                className={styles.actionButtonPrimary}
+                                onClick={() => {
+                                  alert("Analysis saved successfully!");
+                                }}
+                              >
+                                Save Analysis
+                              </button>
+                            </div>
+
+                            {/* Disclaimer */}
+                            <div className={styles.disclaimer}>
+                              <FiInfo className={styles.disclaimerIcon} />
+                              <p>
+                                <strong>Disclaimer:</strong> Calculations
+                                utilize real-time World Bank tariff data and
+                                exchange rates. Final duties may vary based on
+                                specific product classification, trade
+                                agreements, and regulatory updates.
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Global Tariff Rates Section */}
+              {activeSection === "global" && (
+                <motion.div
+                  className={styles.globalDashboard}
+                  key="global"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
                   {/* Header */}
                   <div className={styles.globalHeader}>
                     <div className={styles.headerContent}>
@@ -1137,7 +1704,7 @@ export default function TariffCalculator() {
                                   onClick={() => {
                                     setForm((prev) => ({
                                       ...prev,
-                                      country: country.code,
+                                      originCountry: country.code,
                                     }));
                                     setActiveSection("calculator");
                                   }}
@@ -1275,21 +1842,19 @@ export default function TariffCalculator() {
                       </div>
                     </>
                   )}
-                </div>
-              </motion.div>
-            )}
+                </motion.div>
+              )}
 
-            {/* US Bilateral Tariffs Section */}
-            {activeSection === "usTariffs" && (
-              <motion.div
-                className={styles.sectionContent}
-                key="usTariffs"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className={styles.usTariffsDashboard}>
+              {/* US Bilateral Tariffs Section */}
+              {activeSection === "usTariffs" && (
+                <motion.div
+                  className={styles.usTariffsDashboard}
+                  key="usTariffs"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
                   {/* Header */}
                   <div className={styles.usHeader}>
                     <div className={styles.headerContent}>
@@ -1532,12 +2097,13 @@ export default function TariffCalculator() {
                       Export Data
                     </button>
                   </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
-      </div>
-    </LazyMotion>
+      </LazyMotion>
+      <Footer />
+    </>
   );
 }

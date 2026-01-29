@@ -41,6 +41,23 @@
   margin: 0;
 }
 
+/* Theme Classes */
+.light-theme {
+  --bg-color: var(--light-bg);
+  --surface-color: var(--light-surface);
+  --text-color: var(--light-text);
+  --border-color: #e2e8f0;
+  --hover-bg: #f1f5f9;
+}
+
+.dark-theme {
+  --bg-color: var(--dark-bg);
+  --surface-color: var(--dark-surface);
+  --text-color: var(--dark-text);
+  --border-color: #334155;
+  --hover-bg: #1e293b;
+}
+
 body {
   width: 100%;
   position: relative;
