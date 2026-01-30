@@ -701,7 +701,7 @@ export default function TariffCalculator() {
 
   return (
     <>
-    <Nav />
+      <Nav />
       <LazyMotion features={domAnimation}>
         <div className={styles.container}>
           {/* Hero Header */}
@@ -808,7 +808,7 @@ export default function TariffCalculator() {
                       <div className={styles.panelHeader}>
                         <div className={styles.panelTitle}>
                           <MdOutlineDescription />
-                          <div>
+                          <div className={styles.dutyTaxTow}>
                             <h2>Import Details</h2>
                             <p className={styles.panelSubtitle}>
                               Enter shipment specifications for duty calculation
@@ -876,6 +876,47 @@ export default function TariffCalculator() {
                               </div>
                             </div>
                           </div>
+                          {/* Destination Country */}
+                          <div className={styles.inputGroup}>
+                            <label className={styles.inputLabel}>
+                              <div className={styles.labelIcon}>
+                                <FiFlag />
+                              </div>
+                              <div className={styles.labelContent}>
+                                <span>Destination:</span>
+                                <small>Importing to</small>
+                              </div>
+                            </label>
+                            <div className={styles.selectWrapper}>
+                              <select
+                                name="destinationCountry"
+                                value={form.destinationCountry}
+                                className={styles.selectField}
+                                onChange={handleChange}
+                              >
+                                {countries.map((country) => (
+                                  <option
+                                    key={country.code}
+                                    value={country.code}
+                                  >
+                                    {country.name}
+                                  </option>
+                                ))}
+                              </select>
+                              <div className={styles.selectFlag}>
+                                <ReactCountryFlag
+                                  countryCode={form.destinationCountry}
+                                  svg
+                                  style={{
+                                    width: "20px",
+                                    height: "20px",
+                                    borderRadius: "2px",
+                                  }}
+                                />
+                              </div>
+                              <FiChevronDown className={styles.selectArrow} />
+                            </div>
+                          </div>
 
                           {/* Product description with HS code */}
                           <div className={styles.inputGroup}>
@@ -927,14 +968,6 @@ export default function TariffCalculator() {
                                       </span>
                                     </div>
                                   ))}
-                                </div>
-                              )}
-                              {form.productDescription && hsCodeValid && (
-                                <div className={styles.productDescription}>
-                                  <FiCheckCircle
-                                    className={styles.successIconSmall}
-                                  />
-                                  <span>{form.productDescription}</span>
                                 </div>
                               )}
                             </div>
@@ -1024,6 +1057,9 @@ export default function TariffCalculator() {
                               </div>
                               <div className={styles.labelContent}>
                                 <span>Shipping cost:</span>
+                                <div className={styles.currencyNote}>
+                                  *In currency of origin
+                                </div>
                               </div>
                             </label>
                             <div className={styles.currencyInputGroup}>
@@ -1039,9 +1075,6 @@ export default function TariffCalculator() {
                                   step="0.01"
                                 />
                               </div>
-                              <div className={styles.currencyNote}>
-                                *In currency of origin
-                              </div>
                             </div>
                           </div>
 
@@ -1053,6 +1086,9 @@ export default function TariffCalculator() {
                               </div>
                               <div className={styles.labelContent}>
                                 <span>Insurance cost:</span>
+                                <div className={styles.currencyNote}>
+                                  *In currency of origin
+                                </div>
                               </div>
                             </label>
                             <div className={styles.currencyInputGroup}>
@@ -1071,51 +1107,6 @@ export default function TariffCalculator() {
                                   step="0.01"
                                 />
                               </div>
-                              <div className={styles.currencyNote}>
-                                *In currency of origin
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Destination Country */}
-                          <div className={styles.inputGroup}>
-                            <label className={styles.inputLabel}>
-                              <div className={styles.labelIcon}>
-                                <FiFlag />
-                              </div>
-                              <div className={styles.labelContent}>
-                                <span>Destination:</span>
-                                <small>Importing to</small>
-                              </div>
-                            </label>
-                            <div className={styles.selectWrapper}>
-                              <select
-                                name="destinationCountry"
-                                value={form.destinationCountry}
-                                className={styles.selectField}
-                                onChange={handleChange}
-                              >
-                                {countries.map((country) => (
-                                  <option
-                                    key={country.code}
-                                    value={country.code}
-                                  >
-                                    {country.name}
-                                  </option>
-                                ))}
-                              </select>
-                              <div className={styles.selectFlag}>
-                                <ReactCountryFlag
-                                  countryCode={form.destinationCountry}
-                                  svg
-                                  style={{
-                                    width: "20px",
-                                    height: "20px",
-                                    borderRadius: "2px",
-                                  }}
-                                />
-                              </div>
-                              <FiChevronDown className={styles.selectArrow} />
                             </div>
                           </div>
 
@@ -1149,9 +1140,6 @@ export default function TariffCalculator() {
                                   <div className={styles.transportContent}>
                                     <span className={styles.transportLabel}>
                                       {option.label}
-                                    </span>
-                                    <span className={styles.transportDesc}>
-                                      {option.desc}
                                     </span>
                                   </div>
                                   {form.transportMode === option.value && (
@@ -1249,36 +1237,13 @@ export default function TariffCalculator() {
                       <div className={styles.panelHeader}>
                         <div className={styles.panelTitle}>
                           <MdOutlinePayment />
-                          <div>
+                          <div className={styles.dutyTax}>
                             <h2>Duty & Tax Results</h2>
                             <p className={styles.panelSubtitle}>
                               Comprehensive breakdown like the reference image
                             </p>
                           </div>
                         </div>
-                        {result && (
-                          <div className={styles.resultCountry}>
-                            <ReactCountryFlag
-                              countryCode={result.originCountry}
-                              svg
-                              style={{
-                                width: "20px",
-                                height: "20px",
-                                borderRadius: "2px",
-                              }}
-                            />
-                            <span>to</span>
-                            <ReactCountryFlag
-                              countryCode={result.destinationCountry}
-                              svg
-                              style={{
-                                width: "20px",
-                                height: "20px",
-                                borderRadius: "2px",
-                              }}
-                            />
-                          </div>
-                        )}
                       </div>
 
                       <AnimatePresence mode="wait">
@@ -1352,14 +1317,6 @@ export default function TariffCalculator() {
                                   </span>
                                 </div>
                               </div>
-                              <div className={styles.resultMeta}>
-                                <span className={styles.hsCodeDisplay}>
-                                  HS: {formatHSCode(result.hsCode)}
-                                </span>
-                                <span className={styles.calcDate}>
-                                  {result.calculationDate}
-                                </span>
-                              </div>
                             </div>
 
                             {/* Duty & Tax Charges Section */}
@@ -1390,7 +1347,7 @@ export default function TariffCalculator() {
                             {/* Total Landed Cost Calculation */}
                             <div className={styles.landedCostSection}>
                               <h3 className={styles.sectionTitle}>
-                                <FiDollarSign />
+                                <FiDollarSign  className={styles.LandCost}/>
                                 Your Total Landed Cost Calculation
                               </h3>
                               {getDisplayData()?.landedCostSection.items.map(

@@ -43,7 +43,7 @@
 }
 
 .heroContent {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   text-align: center;
   position: relative;
@@ -261,7 +261,7 @@
 /* ===== CALCULATOR GRID ===== */
 .calculatorGrid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1fr 1.4fr;
   gap: 2.5rem;
   margin-top: 1rem;
 }
@@ -443,8 +443,6 @@
   outline: none;
   transition: all 0.3s ease;
 }
-
-
 
 .selectFlag {
   position: absolute;
@@ -771,9 +769,13 @@
 .transportLabel {
   font-weight: 600;
   color: #1e293b;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
+.LandCost {
+  position: relative;
+  font-size: 2rem;
+}
 .transportDesc {
   font-size: 0.765rem;
   color: #64748b;
@@ -2130,14 +2132,51 @@
   font-size: 0.9rem;
 }
 
+.dutyTax {
+  position: relative;
+  top: 12px;
+}
+
+.dutyTaxTow {
+  position: relative;
+  top: 36px;
+  margin: 0px 0px 30px 0px;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1404px) {
+  .LandCost {
+    position: relative;
+    font-size: 2rem;
+    bottom: 10px;
+  }
+}
 @media (max-width: 768px) {
   .heroTitle {
     font-size: 2.5rem;
   }
 
+  .sectionButton {
+    font-size: 0.8rem;
+  }
+
+  .panelTitle h2 {
+    font-size: 1.45rem;
+  }
+
+  .transportOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .countrySelectRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .heroSubtitle {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
 
   .sectionContainer {
@@ -2183,6 +2222,10 @@
   .usStats {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .quantityInput {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 480px) {
@@ -2200,11 +2243,6 @@
     align-items: flex-start;
   }
 
-  .countrySelectRow {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
   .currencyDisplay {
     text-align: center;
   }
@@ -2215,10 +2253,6 @@
 
   .hsCodeDisplay {
     width: 100%;
-  }
-
-  .quantityInput {
-    flex-direction: column;
   }
 
   .unitSelect {
